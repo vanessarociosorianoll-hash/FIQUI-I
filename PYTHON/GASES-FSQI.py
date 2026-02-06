@@ -28,12 +28,11 @@ datos_gases_init = pd.DataFrame({
 
 df_gases = st.data_editor(datos_gases_init, hide_index=True, use_container_width=True, key="editor_gases")
 
-# --- TABLA INTERACTIVA 2 (Reemplaza el segundo Excel - H1 y H2) ---
 st.header("    DETERMINACION DE CAPACIDADES CALORIFICAS    ")
 datos_h_init = pd.DataFrame({
     "Desnivel": ["10 cm", "15 cm", "20 cm", "25 cm"],
-    "H1": [0, 0, 0, 0],
-    "H2": [0, 0, 0, 0]
+    "H1": [0.0, 0.0,0.0,0.0],
+    "H2": [0.0,0.0,0.0,0.0,]
 })
 df_h_edit = st.data_editor(datos_h_init, hide_index=True, use_container_width=True, key="editor_h")
 
@@ -166,6 +165,7 @@ if st.button("Calcular con estos datos"):
     
     
     
+
 
 
 
