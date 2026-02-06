@@ -3,138 +3,161 @@ import streamlit as st
 from Handbook import pesos_moleculares as pm
 from Handbook.densidades import densidad_agua
 import pandas as pd
-from sympy import symbols, Eq,solve
-from math import*
+from sympy import symbols, Eq, solve
+from math import *
+
 st.title("LABORATORIO DE GASES-FSQI")
 st.sidebar.header("Condiciones del laboratorio")
-temp=st.sidebar.number_input("Temperatura (℃):")
-pres=st.sidebar.number_input("Presion (mmhg): ")
+temp = st.sidebar.number_input("Temperatura (℃):")
+pres = st.sidebar.number_input("Presion (mmhg): ")
 
+st.header("              DENSIDAD DE GASES                ")
 
-st.header("             DENSIDAD DE GASES                ")
+datos_gases_init = pd.DataFrame({
+    "Descripción": [
+        "Presión Barométrica (mmhg)",
+        "Presión de Vapor a T. amb (mmhg)",
+        "Temperatura en la pera (K)",
+        "Masa de componente orgánico (g)",
+        "Volumen desalojado (ml)",
+        "% Humedad relativa"
+    ],
+    "Valor": [750.0, 23.8, 298.15, 0.5, 150.0, 60.0] 
+})
 
-excel=st.file_uploader("SUBA EL ARCHIVO CORRECTO :D",type=["xlsx"])
-if excel is None:
-    st.info("PORFAVOR SUBA EL ARCHIVO ")
-else:
-    df1=pd.read_excel(excel, sheet_name=0) #Tabla 1
-    Pb=float(str(df1["Presion"][0]).replace("mmhg","").strip())
-    Pvap=float(str(df1["Presion de vapor a temperatura ambiente"][0]).replace("mmhg","").strip())
-    Temp_pera=float(str(df1["Temperatura en la pera"][0]).replace("K","").strip())
-    masa_g=float(str(df1["Masa de componente orgánico"][0]).replace("g","").strip())
-    vol_des_ml=float(str(df1["Volumen desalojado"][0]).replace("ml","").strip())
-    Hum_rel=float(str(df1["%Humedad relativa"][0]).replace("%","").strip())
-    
-    #a)
-    Pb_nuevo=Pb-(100-Hum_rel)*Pvap/100
-    
-    #b)
-    V_CN=symbols("V_CN")
-    P_CN=760 #mmhg
-    T_CN=273.15 #K
-    ecua1=Eq(V_CN*P_CN/T_CN,vol_des_ml*Pb_nuevo/Temp_pera)
-    solu1=(solve(ecua1,V_CN)) #ml
-    v_corr=solu1[0]
-    #c)
-    
-    den=symbols("den")
-    Pc=40880.4 #mmgh
-    Tc=536.55 #K
-    R=62.36 #mmgh*L/molK
-    compuesto = st.text_input("Ingrese el compuesto orgánico:", placeholder="Ej: C6H12O6")
-    decimales = st.number_input("Ingrese el número de decimales:", min_value=0, max_value=10, value=2)
+df_gases = st.data_editor(datos_gases_init, hide_index=True, use_container_width=True, key="editor_gases")
+
+# --- TABLA INTERACTIVA 2 (Reemplaza el segundo Excel - H1 y H2) ---
+st.header("    DETERMINACION DE CAPACIDADES CALORIFICAS    ")
+datos_h_init = pd.DataFrame({
+    "Desnivel": ["10 cm", "15 cm", "20 cm", "25 cm"],
+    "H1": [10.0, 15.0, 20.0, 25.0],
+    "H2": [2.0, 3.5, 5.0, 6.5]
+})
+df_h_edit = st.data_editor(datos_h_init, hide_index=True, use_container_width=True, key="editor_h")
+
+compuesto = st.text_input("Ingrese el compuesto orgánico:", placeholder="Ej: C6H14")
+decimales = st.number_input("Ingrese el número de decimales:", min_value=0, max_value=10, value=2)
+
+if st.button("Calcular con estos datos"):
+    # Asignación de variables desde la tabla interactiva
+    Pb = df_gases.iloc[0, 1]
+    Pvap = df_gases.iloc[1, 1]
+    Temp_pera = df_gases.iloc[2, 1]
+    masa_g = df_gases.iloc[3, 1]
+    vol_des_ml = df_gases.iloc[4, 1]
+    Hum_rel = df_gases.iloc[5, 1]
+
     if compuesto:
         try:
+            # a)
+            Pb_nuevo = Pb - (100 - Hum_rel) * Pvap / 100
+            
+            # b)
+            V_CN = symbols("V_CN")
+            P_CN = 760 #mmhg
+            T_CN = 273.15 #K
+            ecua1 = Eq(V_CN * P_CN / T_CN, vol_des_ml * Pb_nuevo / Temp_pera)
+            solu1 = solve(ecua1, V_CN)
+            v_corr = solu1[0]
+
+            # c)
+            den = symbols("den")
+            Pc = 40880.4 #mmgh
+            Tc = 536.55 #K
+            R_gases = 62.36 #mmgh*L/molK
+            
             M = pm.masa(compuesto, int(decimales))
             st.success(f"El peso molecular calculado es: **{M}**")
             
+            ecua2 = Eq(P_CN * M, den * R_gases * T_CN * (1 + (9 * P_CN * Tc / (128 * Pc * T_CN)) * (1 - 6 * (Tc**2 / T_CN**2))))
+            solu2 = solve(ecua2, den)
+            den_teorica = solu2[0]
+
+            # d)
+            den_ex = masa_g / (float(v_corr) * 10**-3)
+            
+            # e) %Error exp
+            Error_exp = abs(den_ex - den_teorica) / den_teorica * 100
+
+            st.write(f"a) Presión barométrica corregida: {Pb_nuevo} mmhg")
+            st.write(f"b) Volumen de aire desplazado corregido (CN): {v_corr} ml")
+            st.write(f"c) Densidad teorica (CN): {den_teorica} g/L")
+            st.write(f"d) Densidad experimental: {den_ex} g/L")
+            st.write(f"e) Error experimental: {Error_exp} %")
+
+            # --- CAPACIDADES CALORÍFICAS ---
+            densidad_del_agua = densidad_agua(temp)
+            H1 = df_h_edit["H1"].tolist()
+            H2 = df_h_edit["H2"].tolist()
+
+            def p_total(altura):
+                P_agua = float(densidad_del_agua) * 1000 * (9.81 / 100) * (760 / (101.3 * 10**3)) * float(altura)
+                Ptotal = Pb + P_agua
+                return Ptotal
+            
+            lista_presionesP1 = []
+            for i in H1:
+                P = p_total(i)
+                lista_presionesP1.append(P)
+                
+            lista_presionesP2 = []
+            for i in H2:
+                P = p_total(i)
+                lista_presionesP2.append(P)
+
+            datos = {
+                "P1(mmhg)/corresponde a H1": lista_presionesP1,
+                "P2(mmhg)/corresponde a H2": lista_presionesP2
+            }
+            df3 = pd.DataFrame(datos, index=["Desnivel: 10 cm", "Desnivel: 15cm", "Desnivel: 20 cm", "Desnivel: 25cm"])
+            st.dataframe(df3)
+
+            # PARA HALLAR EL Y
+            lista_y = []
+            for i, j in zip(lista_presionesP1, lista_presionesP2):
+                y = (log(i) - log(Pb)) / (log(i) - log(j))
+                lista_y.append(y)
+            
+            df4 = pd.DataFrame(lista_y, index=["Y1", "Y2", "Y3", "Y4"]).T
+            st.dataframe(df4, hide_index=True)
+            
+            # yprom
+            Y_promedio = sum(lista_y) / len(lista_y)
+            R_const = 8.314 # J/mol*K
+            CV = symbols("CV")
+            ecua3 = Eq(Y_promedio, (CV + R_const) / CV)
+            solu3 = solve(ecua3, CV)
+            
+            CV_val = solu3[0]
+            CP_val = CV_val + R_const
+            
+            # TEORICOS
+            Y_teorico = 1.4
+            CV_T = symbols("CV_T")
+            ecua4 = Eq(Y_teorico, (CV_T + R_const) / CV_T)
+            solu4 = solve(ecua4, CV_T)
+            CV_teorico = solu4[0]
+            CP_teorico = CV_teorico + R_const
+
+            # ERRORES
+            E_Y = abs(Y_teorico - Y_promedio) * 100 / Y_teorico
+            E_CV = abs(CV_teorico - CV_val) * 100 / CV_teorico
+            E_CP = abs(CP_teorico - CP_val) * 100 / CP_teorico
+            
+            st.header("RESULTADOS FINALES")
+            df5 = pd.DataFrame({
+                "Teorico": [Y_teorico, float(CV_teorico), float(CP_teorico)],
+                "Experimental": [float(Y_promedio), float(CV_val), float(CP_val)],
+                "Error (%)": [float(E_Y), float(E_CV), float(E_CP)]
+            }, index=["Y", "CV", "CP"])
+            
+            st.dataframe(df5)
+
         except Exception as e:
-            st.error(f"Error en la fórmula química. Revise el compuesto ingresado. (Detalle: {e})")
-        
-        ecua2 = Eq(P_CN * M, den * R * T_CN * (1 + (9 * P_CN * Tc / (128 * Pc * T_CN)) * (1 - 6 * (Tc**2 / T_CN**2))))
-        solu2=(solve(ecua2,den))
-        den_teorica=solu2[0]
-        #d)
-        den_ex=masa_g/(v_corr*10**-3)
-        #%Error exp
-        Error_exp=abs(den_ex-den_teorica)/den_teorica*100
-        st.write(f"a) Presion barometrica corregida: {Pb_nuevo} mmhg")
-        st.write(f"b) Volumen de aire desplazado corregido(CN): {v_corr} ml")
-        st.write(f"c) Densidad teorica (CN): {den_teorica} g/L")
-        st.write(f"d) Densidad experimental: {den_ex} g/L")
-        st.write(f"e) Error experimental: {Error_exp} %")
-        #RELACION DE CAPACIDADES CALORIFICAS
-        print("=============================================")
-        st.header("   DETERMINACION DE CAPACIDADES CALORIFICAS    ")
-        print("=============================================")
-        densidad_del_agua=densidad_agua(temp)
-        df2=pd.read_excel(excel, sheet_name=1)
-        H1=pd.to_numeric(df2["H1"].astype(str).str.replace("cm","").str.strip()).tolist()
-        H2=pd.to_numeric(df2["H2"].astype(str).str.replace("cm","").str.strip()).tolist()
-        def p_total(altura):
-            P_agua=float(densidad_del_agua)*1000*(9.81/100)*(760/(101.3*10**3))*float(altura)
-            Ptotal=Pb+P_agua
-            return Ptotal
-        
-        #considerando que el primer par es 10 cm
-        lista_presionesP1=[]
-        for i in H1:
-            P=p_total(i)
-            lista_presionesP1.append(P)
-        lista_presionesP2=[]
-        for i in H2:
-            P=p_total(i)
-            lista_presionesP2.append(P)
-        datos={
-            "P1(mmhg)/corresponde a H1":lista_presionesP1,
-            "P2(mmhg)/corresponde a H2":lista_presionesP2
-        }
-        df3=pd.DataFrame(datos, index=["Desnivel: 10 cm","Desnivel: 15cm","Desnivel: 20 cm","Desnivel: 25cm"])
-        
-        st.dataframe(df3)
-        #PARA HALLAR EL Y
-        print("CAPACIDADES  CALORIFICAS")
-        lista_y=[]
-        for i,j in zip(lista_presionesP1,lista_presionesP2):
-            y=(log(i)-log(Pb))/(log(i)-log(j))
-            lista_y.append(y)
-        datos2=lista_y
-        df4=pd.DataFrame(datos2,index=["Y1","Y2","Y3","Y4"]).T
-        
-        st.dataframe(df4,hide_index=True)
-        
-        #yprom
-        Y_promedio=sum(lista_y)/len(lista_y)
-        R=8.314 #J/mol*K
-        CV=symbols("CV")
-        #Y=CP/CV
-        ecua3=Eq(Y_promedio,(CV+R)/CV)
-        solu3=solve(ecua3,CV)
-        #EXPERIMENTALES
-        CV=solu3[0]
-        CP=CV+R
-        #TEORICOS
-        Y_teorico=1.4
-        CV_T=symbols("CV_T")
-        ecua4=Eq(Y_teorico,(CV_T+R)/CV_T)
-        solu4=solve(ecua4,CV_T)
-        CV_teorico=solu4[0]
-        CP_teorico=CV_teorico+R
-        #ERRORESS
-        E_Y=abs(Y_teorico-Y_promedio)*100/Y_teorico
-        E_CV=abs(CV_teorico-CV)*100/CV_teorico
-        E_CP=abs(CP_teorico-CP)*100/CP_teorico
-        st.header("RESULTADOS")
-        
-        df5=pd.DataFrame({
-            "Teorico":[Y_teorico,CV_teorico,CP_teorico],
-            "Experimental":[Y_promedio,CV,CP],
-            "Error":[E_Y,E_CV,E_CP]
-        },index=["Y","CV","CP"])
-        
-        st.dataframe(df5)
+            st.error(f"Error en los cálculos o fórmula química: {e}")
     else:
-        st.info("Ingrese la formula quimica correcta")
+        st.info("Por favor, ingrese la fórmula química para comenzar.")
     
     
     
@@ -142,7 +165,7 @@ else:
     
     
     
-    
+
 
 
 
