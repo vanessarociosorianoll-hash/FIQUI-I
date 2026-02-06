@@ -107,8 +107,8 @@ if st.button("Calcular con estos datos"):
                 lista_presionesP2.append(P)
 
             datos = {
-                "P1(mmhg)/corresponde a H1": [round(x,4) for x in lista_presionesP1],
-                "P2(mmhg)/corresponde a H2": [round(x,4) for x in lista_presionesP2]
+                "P1(mmhg)/corresponde a H1": lista_presionesP1,
+                "P2(mmhg)/corresponde a H2": lista_presionesP2
             }
             df3 = pd.DataFrame(datos, index=["Desnivel: 10 cm", "Desnivel: 15 cm", "Desnivel: 20 cm", "Desnivel: 25 cm"])
             st.dataframe(df3)
