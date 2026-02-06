@@ -88,8 +88,8 @@ if st.button("Calcular con estos datos"):
 
             # --- CAPACIDADES CALORÍFICAS ---
             densidad_del_agua = densidad_agua(temp)
-            H1 = df_h_edit["H1"].tolist()
-            H2 = df_h_edit["H2"].tolist()
+            H1 = df_h_edit["H1(cm)"].tolist()
+            H2 = df_h_edit["H2(cm)"].tolist()
 
             def p_total(altura):
                 P_agua = float(densidad_del_agua) * 1000 * (9.81 / 100) * (760 / (101.3 * 10**3)) * float(altura)
@@ -166,6 +166,7 @@ if st.button("Calcular con estos datos"):
     
     
     
+
 
 
 
