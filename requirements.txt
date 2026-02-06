@@ -1,9 +1,9 @@
 pandas
 openpyxl
-streamlit
+streamlit>=1.35.0
 numpy
 sympy
 matplotlib
 scipy
-altair==4.2.2
+
 
