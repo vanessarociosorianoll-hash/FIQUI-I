@@ -6,4 +6,4 @@ sympy
 matplotlib
 scipy
 altair==4.2.2
-imghdr-archive
+
