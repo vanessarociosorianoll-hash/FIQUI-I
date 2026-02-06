@@ -4,5 +4,5 @@ streamlit
 numpy
 sympy
 math
-matplotlib.pyplot
+matplotlib
 scipy
