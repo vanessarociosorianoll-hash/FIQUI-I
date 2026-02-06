@@ -80,11 +80,11 @@ if st.button("Calcular con estos datos"):
             # e) %Error exp
             Error_exp = abs(den_ex - den_teorica) / den_teorica * 100
 
-            st.write(f"a) Presión barométrica corregida: {Pb_nuevo} mmhg")
-            st.write(f"b) Volumen de aire desplazado corregido (CN): {v_corr} ml")
-            st.write(f"c) Densidad teorica (CN): {den_teorica} g/L")
-            st.write(f"d) Densidad experimental: {den_ex} g/L")
-            st.write(f"e) Error experimental: {Error_exp} %")
+            st.write(f"a) Presión barométrica corregida: {Pb_nuevo:.4f} mmhg")
+            st.write(f"b) Volumen de aire desplazado corregido (CN): {v_corr:.4f} ml")
+            st.write(f"c) Densidad teorica (CN): {den_teorica:.4f} g/L")
+            st.write(f"d) Densidad experimental: {den_ex:.4f} g/L")
+            st.write(f"e) Error experimental: {Error_exp:.2f} %")
 
             # --- CAPACIDADES CALORÍFICAS ---
             densidad_del_agua = densidad_agua(temp)
@@ -107,10 +107,10 @@ if st.button("Calcular con estos datos"):
                 lista_presionesP2.append(P)
 
             datos = {
-                "P1(mmhg)/corresponde a H1": lista_presionesP1,
-                "P2(mmhg)/corresponde a H2": lista_presionesP2
+                "P1(mmhg)/corresponde a H1": [round(x,4) for x in lista_presionesP1],
+                "P2(mmhg)/corresponde a H2": [round(x,4) for x in lista_presionesP2]
             }
-            df3 = pd.DataFrame(datos, index=["Desnivel: 10 cm", "Desnivel: 15cm", "Desnivel: 20 cm", "Desnivel: 25cm"])
+            df3 = pd.DataFrame(datos, index=["Desnivel: 10 cm", "Desnivel: 15 cm", "Desnivel: 20 cm", "Desnivel: 25 cm"])
             st.dataframe(df3)
 
             # PARA HALLAR EL Y
@@ -165,6 +165,7 @@ if st.button("Calcular con estos datos"):
     
     
     
+
 
 
 
