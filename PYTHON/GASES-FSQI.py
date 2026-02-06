@@ -10,6 +10,7 @@ st.title("LABORATORIO DE GASES-FSQI")
 st.sidebar.header("Condiciones del laboratorio")
 temp = st.sidebar.number_input("Temperatura (℃):")
 pres = st.sidebar.number_input("Presion (mmhg): ")
+hum_relativa=st.sidebar.number_input("Humedad relativa (%)")
 
 st.header("              DENSIDAD DE GASES                ")
 
@@ -22,7 +23,7 @@ datos_gases_init = pd.DataFrame({
         "Volumen desalojado (ml)",
         "% Humedad relativa"
     ],
-    "Valor": [750.0, 23.8, 298.15, 0.5, 150.0, 60.0] 
+    "Valor": [pres, 0, 0, 0, 0, hum_relativa] 
 })
 
 df_gases = st.data_editor(datos_gases_init, hide_index=True, use_container_width=True, key="editor_gases")
@@ -31,8 +32,8 @@ df_gases = st.data_editor(datos_gases_init, hide_index=True, use_container_width
 st.header("    DETERMINACION DE CAPACIDADES CALORIFICAS    ")
 datos_h_init = pd.DataFrame({
     "Desnivel": ["10 cm", "15 cm", "20 cm", "25 cm"],
-    "H1": [10.0, 15.0, 20.0, 25.0],
-    "H2": [2.0, 3.5, 5.0, 6.5]
+    "H1": [0, 0, 0, 0],
+    "H2": [0, 0, 0, 0]
 })
 df_h_edit = st.data_editor(datos_h_init, hide_index=True, use_container_width=True, key="editor_h")
 
@@ -165,6 +166,7 @@ if st.button("Calcular con estos datos"):
     
     
     
+
 
 
 
