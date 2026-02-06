@@ -3,6 +3,5 @@ openpyxl
 streamlit
 numpy
 sympy
-math
 matplotlib
 scipy
