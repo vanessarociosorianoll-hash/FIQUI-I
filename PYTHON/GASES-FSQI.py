@@ -154,8 +154,7 @@ if st.button("Calcular con estos datos"):
             
             st.dataframe(df5)
 
-        except Exception as e:
-            st.error(f"Error en los cálculos o fórmula química: {e}")
+
     else:
         st.info("Por favor, ingrese la fórmula química para comenzar.")
     
@@ -165,6 +164,7 @@ if st.button("Calcular con estos datos"):
     
     
     
+
 
 
 
