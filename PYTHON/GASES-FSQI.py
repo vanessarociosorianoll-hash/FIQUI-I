@@ -147,7 +147,7 @@ if st.button("Calcular con estos datos"):
             
             st.header("RESULTADOS FINALES")
             df5 = pd.DataFrame({
-                ""Teórico": [Y_teorico, float(CV_teorico), float(CP_teorico)],
+                "Teórico": [Y_teorico, float(CV_teorico), float(CP_teorico)],
                 "Experimental": [float(Y_promedio), float(CV_val), float(CP_val)],
                 "Error (%)": [float(E_Y), float(E_CV), float(E_CP)]
             }, index=["Y", "CV", "CP"])
@@ -165,6 +165,7 @@ if st.button("Calcular con estos datos"):
     
     
     
+
 
 
 
