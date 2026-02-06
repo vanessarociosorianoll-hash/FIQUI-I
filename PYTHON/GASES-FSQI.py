@@ -80,11 +80,11 @@ if st.button("Calcular con estos datos"):
             # e) %Error exp
             Error_exp = abs(den_ex - den_teorica) / den_teorica * 100
 
-            st.write(f"a) Presión barométrica corregida: {Pb_nuevo:.4f} mmhg")
-            st.write(f"b) Volumen de aire desplazado corregido (CN): {v_corr:.4f} ml")
-            st.write(f"c) Densidad teorica (CN): {den_teorica:.4f} g/L")
-            st.write(f"d) Densidad experimental: {den_ex:.4f} g/L")
-            st.write(f"e) Error experimental: {Error_exp:.2f} %")
+            st.write(f"a) Presión barométrica corregida: {Pb_nuevo} mmhg")
+            st.write(f"b) Volumen de aire desplazado corregido (CN): {v_corr} ml")
+            st.write(f"c) Densidad teorica (CN): {den_teorica} g/L")
+            st.write(f"d) Densidad experimental: {den_ex} g/L")
+            st.write(f"e) Error experimental: {Error_exp} %")
 
             # --- CAPACIDADES CALORÍFICAS ---
             densidad_del_agua = densidad_agua(temp)
@@ -165,6 +165,7 @@ if st.button("Calcular con estos datos"):
     
     
     
+
 
 
 
