@@ -223,25 +223,25 @@ if va>0:
         CNaOH=prom_cNAOH
         V_NaOH=300/(1+(CNaOH/CHCl))
         V_HCl=300-V_NaOH
-    st.success(f"Promedio de valorizaciones={prom_cHCl:.4f} N") 
-    if ct1>0:
-        erro3=abs(ct1-prom_cHCl)*100/ct1
-        st.warning(f"%ERROR={erro3:.2f}%")
-
-
-st.divider()
-st.header("II)CALOR DE NEUTRALIZACION")
-colteori,colexp=st.columns(2)
-with colteori:
-    st.text("Volumenes teoricos")
-    st.metric(label="V.NaOH ",value=f"{V_NaOH:.2f} ml")
-    st.metric(label="V.HCl ",value=f"{V_HCl:.2f} ml")
-with colexp:
-    st.text("Volumenes experimentales")
-    V_NaOHexp=st.number_input("V. NaOH usado (ml): ",min_value=0, max_value=10000)
-    V_HClexp=st.number_input("V. HCl usado (ml): ",min_value=0,max_value=10000)
-#para halalr el calor de neutralizacion
-st.info("Para el calculo del calor de neutralización se usará::")
+         st.success(f"Promedio de valorizaciones={prom_cHCl:.4f} N") 
+         if ct1>0:
+             erro3=abs(ct1-prom_cHCl)*100/ct1
+             st.warning(f"%ERROR={erro3:.2f}%")
+     
+     
+     st.divider()
+     st.header("II)CALOR DE NEUTRALIZACION")
+     colteori,colexp=st.columns(2)
+     with colteori:
+         st.text("Volumenes teoricos")
+         st.metric(label="V.NaOH ",value=f"{V_NaOH:.2f} ml")
+         st.metric(label="V.HCl ",value=f"{V_HCl:.2f} ml")
+     with colexp:
+         st.text("Volumenes experimentales")
+         V_NaOHexp=st.number_input("V. NaOH usado (ml): ",min_value=0, max_value=10000)
+         V_HClexp=st.number_input("V. HCl usado (ml): ",min_value=0,max_value=10000)
+#para halalr el calor de neutralización
+st.info("Para el cálculo del calor de neutralización se usará::")
 st.latex(r"Q_{rxn}=(C_{termo}+m_{sol}*Ce_{sol}).(T_{eq}-T_{inicial})")
 st.latex(r"\Delta H_{neutralizacion}=\frac{-Q_{rxn}}{n_{react.limitant}}")
 st.info("Si usted desea un calculo mas exacto, será necesario ingresar los valores de las masas de las soluciones pesadas en el laboratorio,caso contrario; se asumirá 300 g como masa de solucion")
@@ -274,4 +274,5 @@ if opcion=="Exacto":
     st.success(f"△Hrnx= {float(E):.4f} KJ/mol")
     erorrorr=abs(-55.8-E)*100/55.8
     st.error(f"%Error={erorrorr} %")
+
     st.info("En el cálculo exacto, no se asumió una  solución ideal. Se utilizó un modelo de Capacidad Calorífica Molar Aparente basado en el CRC Handbook. El programa calculó la masa efectiva del solvente restando la masa de los solutos y aplicó las contribuciones térmicas individuales de cada especie ($NaCl, NaOH$ y $H_2O$). Esto permite capturar el efecto de la interacción ion-solvente que reduce la capacidad calorífica del sistema, entregando una entalpía de neutralización basada en la física real de la mezcla.Siendo este calculo , mucho mas sensible en comparacion al simple :D")
