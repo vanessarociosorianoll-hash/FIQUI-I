@@ -43,9 +43,9 @@ if excel is not None:
         inversa_T=1/temperatura_K
         datos2={
             "T(℃)":lista_temperatura,
-            "Presion manometrica Hg(mmhg)":lista_presiones,
+            ""Presión manométrica Hg(mmhg)":lista_presiones,
             "T(K)":temperatura_K,
-            "Presion del gas(mmhg)":Pgas_mmhg,
+            ""Presión del gas (mmHg)":Pgas_mmhg,
             "Ln(P_gas)":Ln_pgas,
             "1/T":inversa_T
         }
@@ -83,7 +83,7 @@ if excel is not None:
             ynuevo=a*inversa_T+b
             ax.plot(inversa_T,ynuevo,color="#000000C3",linestyle="-",label=f"Regresion lineal: y={a:.4f}x+{b:.4f}")
             ax.legend(loc="best")
-            st.pyplot(fig,width=500)
+            st.pyplot(fig,width=700)
             st.header("B)CALOR MOLAR DE VAPORIZACIÓN USANDO EC. DE CLAUSIUS-CLAPEYRON")
             st.text("Usando la formula:")
             st.latex(r"\frac{dp}{dT} = \frac{\Delta HV}{(Vg - Vl)T} = \frac{\Delta HV}{T \Delta V}")
@@ -130,6 +130,7 @@ if excel is not None:
     
     
     
+
 
 
 
