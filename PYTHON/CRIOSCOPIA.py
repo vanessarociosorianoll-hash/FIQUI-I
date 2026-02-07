@@ -70,8 +70,12 @@ if excel is not None:
     temp_n1=np.round(temperatura,2)
     minimo=np.argmin(temp_n1)
     cont=temp_n1[minimo+2:]
-    t_conge_c=stats.mode(cont,keepdims=True)
-    T1_SL=float(t_conge_c[0])
+    if len(cont) > 0:
+        t_conge_c = stats.mode(cont, keepdims=True)
+        T1_SL = float(t_conge_c.mode[0])
+    else:
+        T1_SL = 0.0
+        st.warning(" No se detectó una meseta clara después del punto mínimo.")
     ax.plot(x,y,color="#144B97C3",linestyle="-",label=f"T_congelacion={T1_SL}℃")
     ax.legend(loc="best")
     st.pyplot(fig)
@@ -154,6 +158,7 @@ else:
     st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA(TENGA EN CUENTA LAS UNIDADES, SIN EMBARGO, EL NOMBRE DE LOS ROTULOS ES RELATIVO, RESPETE EL ORDEN")
     
         
+
 
 
 
