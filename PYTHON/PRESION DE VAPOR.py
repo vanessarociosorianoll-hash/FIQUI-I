@@ -43,9 +43,9 @@ if excel is not None:
         inversa_T=1/temperatura_K
         datos2={
             "T(℃)":lista_temperatura,
-            ""Presión manométrica Hg(mmhg)":lista_presiones,
+            "Presión manométrica Hg(mmhg)":lista_presiones,
             "T(K)":temperatura_K,
-            ""Presión del gas (mmHg)":Pgas_mmhg,
+            "Presión del gas (mmHg)":Pgas_mmhg,
             "Ln(P_gas)":Ln_pgas,
             "1/T":inversa_T
         }
@@ -130,6 +130,7 @@ if excel is not None:
     
     
     
+
 
 
 
