@@ -11,9 +11,10 @@ st.title("LABORATORIO PRESION DE VAPOR -FSQI")
 st.sidebar.header("Condiciones del laboratorio")
 temp=st.sidebar.number_input("Temperatura (℃):")
 pres=st.sidebar.number_input("Presion (mmhg): ")
+st.image("DATOS_PRESIONVAP.png", caption="Asegúrate que el archivo Excel tenga la siguiente estructura:D", use_container_width=True)
 excel=st.file_uploader("SUBA EL ARCHIVO CORRECTO :D",type=["xlsx"])
 if excel is None:
-    st.info("Tenga en cuenta la etiqueta y estructura del archivo excel")
+    st.info("Tenga en cuenta la etiqueta y estructura del archivo Excel")
 else: 
     df1=pd.read_excel(excel, sheet_name=0)
     lista_temperatura=df1["T(℃)"].tolist()
@@ -103,10 +104,11 @@ else:
     st.warning(f"PORCENTAJE DE ERROR={error:.2f}%")
     #cd "C:\Users\SORIANO\Desktop\UNMSM\VACACIONES-U\PYTHON"
     #streamlit run "#PRESION DE VAPOR.py"
-    st.header("C)EXPRESION MATEMATICA: ")
-    st.text("Usando los datos obtenidos por la grafico, se procede a integrar:")
+    st.header("C)EXPRESIÓN MATEMÁTICA: ")
+    st.text("Usando los datos obtenidos por el gráfico, se procede a integrar:")
     st.latex(r"\int \frac{dP}{P}=\frac{\Delta HV}{R}*\int\frac{dT}{T^2}")
     st.latex(r"ln(P)=\frac{-\Delta HV}{R*T}+C")
     st.text("Expresión: ")
     A=e**b
+
     st.latex(fr"P = e^{{ \frac{{ -{deltaHV:.4f} }}{{ {R} \cdot T }} }} \cdot {A:.4f}")
