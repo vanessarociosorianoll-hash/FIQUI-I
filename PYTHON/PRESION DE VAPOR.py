@@ -48,7 +48,7 @@ if excel is not None:
     
         x=inversa_T
         y=Ln_pgas
-        if not x.empty and not y.empty:
+        if x.size > 0 and y.size > 0:
             fig, ax=plt.subplots()
             ax.xaxis.set_major_locator(ticker.AutoLocator())
             ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(10))
@@ -118,6 +118,7 @@ if excel is not None:
     
     
     
+
 
 
 
