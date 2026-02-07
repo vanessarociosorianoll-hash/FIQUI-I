@@ -27,15 +27,13 @@ with col1:
     st.subheader("Estructura del archivo:")
     sub_col1, sub_col2 = st.columns(2)
     with sub_col1:
-        st.image("criosagua.png", caption="Analisis del agua")
+        st.image("criosagua.png", caption="Analisis del agua",width=300)
     with sub_col2:
-        st.image("criosolve.png", caption="Analisis del soluto")
+        st.image("criosolve.png", caption="Analisis del soluto",width=300)
 
 with col2:
     excel = st.file_uploader("SUBA EL ARCHIVO CORRECTO :D", type=["xlsx"])
-if excel is None:
-    st.info("Tenga en cuenta la etiqueta y estructura del archivo excel")
-else: 
+if excel is not None: 
     #AGUA
     df1=pd.read_excel(excel, sheet_name=0)
     st.subheader("Configuración de Columnas")
@@ -153,4 +151,5 @@ else:
         except:
             st.error(f"Error en la fórmula química. Revise el compuesto ingresado")
         
+
 
