@@ -128,7 +128,7 @@ else:
     ax.set_xlabel("Tiempos(s)")
     ax.set_ylabel("Temperatura)")
     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-    st.pyplot(fig)
+    st.pyplot(fig,width=600)
 
 #NaOH=0.2
 #HCl=0.8
@@ -275,6 +275,7 @@ if va>0:
               st.error(f"%Error={erorrorr} %")
           
               st.info("En el cálculo exacto, no se asumió una  solución ideal. Se utilizó un modelo de Capacidad Calorífica Molar Aparente basado en el CRC Handbook. El programa calculó la masa efectiva del solvente restando la masa de los solutos y aplicó las contribuciones térmicas individuales de cada especie ($NaCl, NaOH$ y $H_2O$). Esto permite capturar el efecto de la interacción ion-solvente que reduce la capacidad calorífica del sistema, entregando una entalpía de neutralización basada en la física real de la mezcla.Siendo este calculo , mucho mas sensible en comparacion al simple :D")
+
 
 
 
