@@ -59,8 +59,14 @@ if excel is not None:
             ax.plot(x,y,color="skyblue",linestyle="", marker="o")
             n, nx = np.nanmin(x), np.nanmax(x)
             m, mx = np.nanmin(y), np.nanmax(y)
-            ax.set_xlim(n,nx)
-            ax.set_ylim(m,mx)
+            
+            if np.isfinite([n, nx, m, mx]).all():
+                # Agregamos un 5% de margen para que no se corten los puntos
+                margin_x = (nx - n) * 0.05 if nx != n else 0.1
+                margin_y = (mx - m) * 0.05 if mx != m else 0.1
+                ax.set_xlim(n - margin_x, nx + margin_x)
+                ax.set_ylim(m - margin_y, mx + margin_y)
+                
             ax.set_title("1/T vs Ln(Presion del gas)")
             ax.set_xlabel("1/T")
             ax.set_ylabel("Ln(Pgas)")
@@ -118,6 +124,7 @@ if excel is not None:
     
     
     
+
 
 
 
