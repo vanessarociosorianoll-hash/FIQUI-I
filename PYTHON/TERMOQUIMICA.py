@@ -229,51 +229,52 @@ if va>0:
              st.warning(f"%ERROR={erro3:.2f}%")
      
      
-     st.divider()
-     st.header("II)CALOR DE NEUTRALIZACION")
-     colteori,colexp=st.columns(2)
-     with colteori:
-         st.text("Volumenes teoricos")
-         st.metric(label="V.NaOH ",value=f"{V_NaOH:.2f} ml")
-         st.metric(label="V.HCl ",value=f"{V_HCl:.2f} ml")
-     with colexp:
-         st.text("Volumenes experimentales")
-         V_NaOHexp=st.number_input("V. NaOH usado (ml): ",min_value=0, max_value=10000)
-         V_HClexp=st.number_input("V. HCl usado (ml): ",min_value=0,max_value=10000)
-#para halalr el calor de neutralización
-     st.info("Para el cálculo del calor de neutralización se usará::")
-     st.latex(r"Q_{rxn}=(C_{termo}+m_{sol}*Ce_{sol}).(T_{eq}-T_{inicial})")
-     st.latex(r"\Delta H_{neutralizacion}=\frac{-Q_{rxn}}{n_{react.limitant}}")
-     st.info("Si usted desea un calculo mas exacto, será necesario ingresar los valores de las masas de las soluciones pesadas en el laboratorio,caso contrario; se asumirá 300 g como masa de solucion")
-     ti = st.number_input(label="Temperatura inicial de las soluciones(℃): ", min_value=0.0, max_value=100.0, value=20.0)
-     te = st.number_input(label="Temperatura de equilibrio (℃): ", min_value=0.0, max_value=100.0, value=20.0)
-     temp_inicial=float(ti)
-     temp_eq=float(te)
-     if opcion=="Simple":
-         Q1=(cap_prom+(300))*(temp_eq-temp_inicial)
-         Q1_kJ=(Q1* 4.184) / 1000
-         E = -Q1_kJ / (CHCl * (V_HClexp / 1000))
-         st.success(f"△Hrnx= {float(E):.4f} KJ/mol")
-         eroror=abs(-55.8-E)*100/55.8
-         st.error(f"%Error={eroror} %")
-     if opcion=="Exacto":
-         h=st.number_input(label="Peso en gramos de la solucion de HCl")
-         na=st.number_input(label="Peso en gramos de la solucion de NaOH")
-         Cp_molar=-90 #J/molK, segun CRC
-         CP_molaragua=75.3  #J/Kmol
-         cp_molarNaOH=-95.4 #J/Kmol
-     
-         mtotla=h+na
-         n_Nacl=(V_HClexp/1000)*CHCl
-         n_NaOHexceso=(V_NaOHexp/1000)*CNaOH-n_Nacl
-         magua=mtotla-(n_Nacl*masa("H2O",2)+n_NaOHexceso*masa("NaOH",2))
-         n_agua=magua/masa("H2O",2)
-         Cptotal_J = (n_agua * CP_molaragua) + (n_Nacl * Cp_molar) + (n_NaOHexceso * cp_molarNaOH)
-         Q1_J = (cap_prom2 + Cptotal_J) * (temp_eq - temp_inicial)
-         E = -(Q1_J / 1000) / n_Nacl
-         st.success(f"△Hrnx= {float(E):.4f} KJ/mol")
-         erorrorr=abs(-55.8-E)*100/55.8
-         st.error(f"%Error={erorrorr} %")
-     
-         st.info("En el cálculo exacto, no se asumió una  solución ideal. Se utilizó un modelo de Capacidad Calorífica Molar Aparente basado en el CRC Handbook. El programa calculó la masa efectiva del solvente restando la masa de los solutos y aplicó las contribuciones térmicas individuales de cada especie ($NaCl, NaOH$ y $H_2O$). Esto permite capturar el efecto de la interacción ion-solvente que reduce la capacidad calorífica del sistema, entregando una entalpía de neutralización basada en la física real de la mezcla.Siendo este calculo , mucho mas sensible en comparacion al simple :D")
+          st.divider()
+          st.header("II)CALOR DE NEUTRALIZACION")
+          colteori,colexp=st.columns(2)
+          with colteori:
+              st.text("Volumenes teoricos")
+              st.metric(label="V.NaOH ",value=f"{V_NaOH:.2f} ml")
+              st.metric(label="V.HCl ",value=f"{V_HCl:.2f} ml")
+          with colexp:
+              st.text("Volumenes experimentales")
+              V_NaOHexp=st.number_input("V. NaOH usado (ml): ",min_value=0, max_value=10000)
+              V_HClexp=st.number_input("V. HCl usado (ml): ",min_value=0,max_value=10000)
+     #para halalr el calor de neutralización
+          st.info("Para el cálculo del calor de neutralización se usará::")
+          st.latex(r"Q_{rxn}=(C_{termo}+m_{sol}*Ce_{sol}).(T_{eq}-T_{inicial})")
+          st.latex(r"\Delta H_{neutralizacion}=\frac{-Q_{rxn}}{n_{react.limitant}}")
+          st.info("Si usted desea un calculo mas exacto, será necesario ingresar los valores de las masas de las soluciones pesadas en el laboratorio,caso contrario; se asumirá 300 g como masa de solucion")
+          ti = st.number_input(label="Temperatura inicial de las soluciones(℃): ", min_value=0.0, max_value=100.0, value=20.0)
+          te = st.number_input(label="Temperatura de equilibrio (℃): ", min_value=0.0, max_value=100.0, value=20.0)
+          temp_inicial=float(ti)
+          temp_eq=float(te)
+          if opcion=="Simple":
+              Q1=(cap_prom+(300))*(temp_eq-temp_inicial)
+              Q1_kJ=(Q1* 4.184) / 1000
+              E = -Q1_kJ / (CHCl * (V_HClexp / 1000))
+              st.success(f"△Hrnx= {float(E):.4f} KJ/mol")
+              eroror=abs(-55.8-E)*100/55.8
+              st.error(f"%Error={eroror} %")
+          if opcion=="Exacto":
+              h=st.number_input(label="Peso en gramos de la solucion de HCl")
+              na=st.number_input(label="Peso en gramos de la solucion de NaOH")
+              Cp_molar=-90 #J/molK, segun CRC
+              CP_molaragua=75.3  #J/Kmol
+              cp_molarNaOH=-95.4 #J/Kmol
+          
+              mtotla=h+na
+              n_Nacl=(V_HClexp/1000)*CHCl
+              n_NaOHexceso=(V_NaOHexp/1000)*CNaOH-n_Nacl
+              magua=mtotla-(n_Nacl*masa("H2O",2)+n_NaOHexceso*masa("NaOH",2))
+              n_agua=magua/masa("H2O",2)
+              Cptotal_J = (n_agua * CP_molaragua) + (n_Nacl * Cp_molar) + (n_NaOHexceso * cp_molarNaOH)
+              Q1_J = (cap_prom2 + Cptotal_J) * (temp_eq - temp_inicial)
+              E = -(Q1_J / 1000) / n_Nacl
+              st.success(f"△Hrnx= {float(E):.4f} KJ/mol")
+              erorrorr=abs(-55.8-E)*100/55.8
+              st.error(f"%Error={erorrorr} %")
+          
+              st.info("En el cálculo exacto, no se asumió una  solución ideal. Se utilizó un modelo de Capacidad Calorífica Molar Aparente basado en el CRC Handbook. El programa calculó la masa efectiva del solvente restando la masa de los solutos y aplicó las contribuciones térmicas individuales de cada especie ($NaCl, NaOH$ y $H_2O$). Esto permite capturar el efecto de la interacción ion-solvente que reduce la capacidad calorífica del sistema, entregando una entalpía de neutralización basada en la física real de la mezcla.Siendo este calculo , mucho mas sensible en comparacion al simple :D")
+
 
