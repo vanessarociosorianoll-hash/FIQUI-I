@@ -244,8 +244,8 @@ if va>0:
           st.latex(r"Q_{rxn}=(C_{termo}+m_{sol}*Ce_{sol}).(T_{eq}-T_{inicial})")
           st.latex(r"\Delta H_{neutralizacion}=\frac{-Q_{rxn}}{n_{react.limitant}}")
           st.info("Si usted desea un calculo mas exacto, será necesario ingresar los valores de las masas de las soluciones pesadas en el laboratorio,caso contrario; se asumirá 300 g como masa de solucion")
-          ti = st.number_input(label="Temperatura inicial de las soluciones(℃): ", min_value=0.0, max_value=100.0, value=20.0)
-          te = st.number_input(label="Temperatura de equilibrio (℃): ", min_value=0.0, max_value=100.0, value=20.0)
+          ti = st.number_input(label="Temperatura inicial de las soluciones(℃): ", min_value=0.0, max_value=100.0, value=0.0)
+          te = st.number_input(label="Temperatura de equilibrio (℃): ", min_value=0.0, max_value=100.0, value=0.0)
           temp_inicial=float(ti)
           temp_eq=float(te)
           if opcion=="Simple":
@@ -278,6 +278,7 @@ if va>0:
               st.error(f"%Error={erorrorr} %")
           
               st.info("En el cálculo exacto, no se asumió una  solución ideal. Se utilizó un modelo de Capacidad Calorífica Molar Aparente basado en el CRC Handbook. El programa calculó la masa efectiva del solvente restando la masa de los solutos y aplicó las contribuciones térmicas individuales de cada especie ($NaCl, NaOH$ y $H_2O$). Esto permite capturar el efecto de la interacción ion-solvente que reduce la capacidad calorífica del sistema, entregando una entalpía de neutralización basada en la física real de la mezcla.Siendo este calculo , mucho mas sensible en comparacion al simple :D")
+
 
 
 
