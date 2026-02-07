@@ -19,7 +19,20 @@ st.sidebar.text("Volumen de solvente y peso del soluto, para calculos mas exacto
 V_ml=st.sidebar.number_input("Volumen agua(ml)", min_value=0, max_value=100000, value=25)
 W2=st.sidebar.number_input("Peso del solvente(g)",min_value=0.00000, max_value=200000.00000,value=0.2000,step=0.00001,format="%.4f")
 
-excel=st.file_uploader("SUBA EL ARCHIVO CORRECTO :D",type=["xlsx"])
+st.divider()
+
+col1, col2 = st.columns([2, 1]) 
+
+with col1:
+    st.subheader("Estructura del archivo:")
+    sub_col1, sub_col2 = st.columns(2)
+    with sub_col1:
+        st.image("criosagua.png", caption="Analisis del agua")
+    with sub_col2:
+        st.image("criosolve.png", caption="Analisis del soluto")
+
+with col2:
+    excel = st.file_uploader("SUBA EL ARCHIVO CORRECTO :D", type=["xlsx"])
 if excel is None:
     st.info("Tenga en cuenta la etiqueta y estructura del archivo excel")
 else: 
@@ -140,3 +153,4 @@ else:
         except:
             st.error(f"Error en la fórmula química. Revise el compuesto ingresado")
         
+
