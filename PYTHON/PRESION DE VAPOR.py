@@ -115,7 +115,8 @@ with col2:
         st.text("Expresión: ")
         A=e**b
 
-    st.latex(fr"P = e^{{ \frac{{ -{deltaHV:.4f} }}{{ {R} \cdot T }} }} \cdot {A:.4f}")
+        st.latex(fr"P = e^{{ \frac{{ -{deltaHV:.4f} }}{{ {R} \cdot T }} }} \cdot {A:.4f}")
+
 
 
 
