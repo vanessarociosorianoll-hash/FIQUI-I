@@ -150,6 +150,10 @@ if excel is not None:
                 st.error(f"%Error={error1:.2f} %")
         except:
             st.error(f"Error en la fórmula química. Revise el compuesto ingresado")
+else:
+    st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA(TENGA EN CUENTA LAS UNIDADES, SIN EMBARGO, EL NOMBRE DE LOS ROTULOS ES RELATIVO, RESPETE EL ORDEN")
+    
         
+
 
 
