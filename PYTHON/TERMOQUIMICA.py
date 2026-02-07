@@ -255,7 +255,7 @@ if va>0:
                    E = -Q1_kJ / (CHCl * (V_HClexp / 1000))
                    st.success(f"△Hrnx= {float(E):.4f} KJ/mol")
                    eroror=abs(-55.8-E)*100/55.8
-                   st.error(f"%Error={eroror} %")
+                   st.error(f"%Error={eroror:.2f} %")
               else:
                    st.info("Ingrese datos porfavor")
           if opcion=="Exacto":
@@ -278,6 +278,7 @@ if va>0:
               st.error(f"%Error={erorrorr:.2f} %")
           
               st.info("En el cálculo exacto, no se asumió una  solución ideal. Se utilizó un modelo de Capacidad Calorífica Molar Aparente basado en el CRC Handbook. El programa calculó la masa efectiva del solvente restando la masa de los solutos y aplicó las contribuciones térmicas individuales de cada especie ($NaCl, NaOH$ y $H_2O$). Esto permite capturar el efecto de la interacción ion-solvente que reduce la capacidad calorífica del sistema, entregando una entalpía de neutralización basada en la física real de la mezcla.Siendo este calculo , mucho mas sensible en comparacion al simple :D")
+
 
 
 
