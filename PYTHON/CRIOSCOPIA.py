@@ -21,15 +21,15 @@ W2=st.sidebar.number_input("Peso del solvente(g)",min_value=0.00000, max_value=2
 
 st.divider()
 
-col1, col2 = st.columns([2, 1]) 
+col1, col2 = st.columns([2, 1])
 
 with col1:
     st.subheader("Estructura del archivo:")
     sub_col1, sub_col2 = st.columns(2)
     with sub_col1:
-        st.image("criosagua.png", caption="Analisis del agua",width=300)
+        st.image("criosagua.png", caption="Analisis del agua",width=200)
     with sub_col2:
-        st.image("criosolve.png", caption="Analisis del soluto",width=300)
+        st.image("criosolve.png", caption="Analisis del soluto",width=200)
 
 with col2:
     excel = st.file_uploader("SUBA EL ARCHIVO CORRECTO :D", type=["xlsx"])
@@ -154,6 +154,7 @@ else:
     st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA(TENGA EN CUENTA LAS UNIDADES, SIN EMBARGO, EL NOMBRE DE LOS ROTULOS ES RELATIVO, RESPETE EL ORDEN")
     
         
+
 
 
 
