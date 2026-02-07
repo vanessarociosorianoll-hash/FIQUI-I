@@ -85,7 +85,7 @@ if excel is not None:
             ss_res = np.sum(residuals**2)
             ss_tot = np.sum((Ln_pgas - np.mean(Ln_pgas))**2)
             r_squared = 1 - (ss_res / ss_tot)
-            st.success(f"Ecuación de la recta: y={a:.4f}x+{b:.4f}.Coeficiente de determinación  $R^2$ = {r_squared:.4f}")
+            st.success(f"Ecuación de la recta: y={a:.4f}x+{b:.4f}. Coeficiente de determinación  $R^2$ = {r_squared:.4f}")
             
             #PARA GRAFICAR LA REGRESIÓN LINEAL:
             ynuevo=a*inversa_T+b
@@ -138,6 +138,7 @@ if excel is not None:
     
     
     
+
 
 
 
