@@ -237,8 +237,8 @@ if va>0:
               st.metric(label="V.HCl ",value=f"{V_HCl:.2f} ml")
           with colexp:
               st.text("Volumenes experimentales")
-              V_NaOHexp=st.number_input("V. NaOH usado (ml): ",min_value=0.0, max_value=10000)
-              V_HClexp=st.number_input("V. HCl usado (ml): ",min_value=0.0,max_value=10000)
+              V_NaOHexp=st.number_input("V. NaOH usado (ml): ",min_value=0.0, max_value=10000.0)
+              V_HClexp=st.number_input("V. HCl usado (ml): ",min_value=0.0,max_value=10000.0)
                #para halalr el calor de neutralización
           st.info("Para el cálculo del calor de neutralización se usará::")
           st.latex(r"Q_{rxn}=(C_{termo}+m_{sol}*Ce_{sol}).(T_{eq}-T_{inicial})")
@@ -275,6 +275,7 @@ if va>0:
               st.error(f"%Error={erorrorr} %")
           
               st.info("En el cálculo exacto, no se asumió una  solución ideal. Se utilizó un modelo de Capacidad Calorífica Molar Aparente basado en el CRC Handbook. El programa calculó la masa efectiva del solvente restando la masa de los solutos y aplicó las contribuciones térmicas individuales de cada especie ($NaCl, NaOH$ y $H_2O$). Esto permite capturar el efecto de la interacción ion-solvente que reduce la capacidad calorífica del sistema, entregando una entalpía de neutralización basada en la física real de la mezcla.Siendo este calculo , mucho mas sensible en comparacion al simple :D")
+
 
 
 
