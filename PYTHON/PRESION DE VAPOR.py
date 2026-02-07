@@ -121,12 +121,11 @@ if excel is not None:
             HV_prom=sum(lista_valordedeltaHV)/len(lista_valordedeltaHV)
         
             st.success(f"HV={HV_prom:.4f}J/mol*K")
-            st.subheader("PORCENTAJE DE ERROR")
+            st.subheader("PORCENTAJE DE ERROR RELATIVO")
         
             error=abs(HV_prom-deltaHV)*100/HV_prom
-            st.warning(f"PORCENTAJE DE ERROR={error:.2f}%")
-            #cd "C:\Users\SORIANO\Desktop\UNMSM\VACACIONES-U\PYTHON"
-            #streamlit run "#PRESION DE VAPOR.py"
+            st.warning(f"{error:.2f}%")
+
             st.header("C)EXPRESIÓN MATEMÁTICA: ")
             st.text("Usando los datos obtenidos por el gráfico, se procede a integrar:")
             st.latex(r"\int \frac{dP}{P}=\frac{\Delta HV}{R}*\int\frac{dT}{T^2}")
@@ -138,6 +137,7 @@ if excel is not None:
     
     
     
+
 
 
 
