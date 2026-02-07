@@ -83,7 +83,7 @@ if excel is not None:
             ynuevo=a*inversa_T+b
             ax.plot(inversa_T,ynuevo,color="#000000C3",linestyle="-",label=f"Regresion lineal: y={a:.4f}x+{b:.4f}")
             ax.legend(loc="best")
-            st.pyplot(fig)
+            st.pyplot(fig,width=200)
             st.header("B)CALOR MOLAR DE VAPORIZACION USANDO EC. DE CLAUSIUS-CLAPEYRON")
             st.text("Usando la formula:")
             st.latex(r"\frac{dp}{dT} = \frac{\Delta HV}{(Vg - Vl)T} = \frac{\Delta HV}{T \Delta V}")
@@ -130,6 +130,7 @@ if excel is not None:
     
     
     
+
 
 
 
