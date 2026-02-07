@@ -57,8 +57,8 @@ if excel is not None:
             ax.grid(which='major', color="#2761AB", linestyle='-', linewidth=0.8, alpha=0.6)
             ax.grid(which="minor",color="#2761AB",linestyle="-",linewidth=0.2,alpha=0.3)
             ax.plot(x,y,color="skyblue",linestyle="", marker="o")
-            n, nx = x.min(), x.max()
-            m, mx = y.min(), y.max()
+            n, nx = np.nanmin(x), np.nanmax(x)
+            m, mx = np.nanmin(y), np.nanmax(y)
             ax.set_xlim(n,nx)
             ax.set_ylim(m,mx)
             ax.set_title("1/T vs Ln(Presion del gas)")
@@ -118,6 +118,7 @@ if excel is not None:
     
     
     
+
 
 
 
