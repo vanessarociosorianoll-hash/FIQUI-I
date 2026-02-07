@@ -25,8 +25,11 @@ if excel is not None:
         st.stop()
     else:
         df1=pd.read_excel(excel, sheet_name=0)
-        lista_temperatura=df1["T(℃)"].tolist()
-        lista_presiones=df1["PHg(mmhg)"].tolist()
+        cols = df1.columns.tolist()
+        col_t = [c for c in cols if 'T' in c.upper()][0] 
+        col_p = [c for c in cols if 'P' in c.upper()][0] 
+        lista_temperatura = df1[col_t].tolist()
+        lista_presiones = df1[col_p].tolist()
         temperatura_array=np.array(lista_temperatura)
         presionhg_array=np.array(lista_presiones)
         # COLUMNA: T(K)
@@ -127,6 +130,7 @@ if excel is not None:
     
     
     
+
 
 
 
