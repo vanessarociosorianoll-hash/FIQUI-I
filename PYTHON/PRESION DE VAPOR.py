@@ -20,7 +20,7 @@ with col2:
     st.write("**Sube tu archivo :D**")
     excel=st.file_uploader("EXCEL:",type=["xlsx", "xls", "csv"])
 if excel is not None:
-    if temp is None:
+    if pres is None:
         st.warning("CÁLCULOS NO DISPONIBLES. INGRESE LAS CONDICIONES DEL LABORATORIO")
     else:
         df1=pd.read_excel(excel, sheet_name=0)
@@ -127,6 +127,7 @@ if excel is not None:
     
     
     
+
 
 
 
