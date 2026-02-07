@@ -79,7 +79,14 @@ if excel is not None:
             ax.set_ylabel("Ln(Pgas)")
             #ECUACION : AX+B=Y
             a,b=np.polyfit(inversa_T,Ln_pgas,1)
-            st.success(f"Ecuación de la recta: y={a:.4f}x+{b:.4f}")
+            y_pred = a * inversa_T + b
+
+            residuals = Ln_pgas - y_pred
+            ss_res = np.sum(residuals**2)
+            ss_tot = np.sum((Ln_pgas - np.mean(Ln_pgas))**2)
+            r_squared = 1 - (ss_res / ss_tot)
+            st.success(f"Ecuación de la recta: y={a:.4f}x+{b:.4f}.Coeficiente de determinación  $R^2$ = {r_squared:.4f}"")
+            
             #PARA GRAFICAR LA REGRESIÓN LINEAL:
             ynuevo=a*inversa_T+b
             ax.plot(inversa_T,ynuevo,color="#000000C3",linestyle="-",label=f"Regresion lineal: y={a:.4f}x+{b:.4f}")
@@ -131,6 +138,7 @@ if excel is not None:
     
     
     
+
 
 
 
