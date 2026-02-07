@@ -17,7 +17,7 @@ pres=st.sidebar.number_input("Presion (mmhg): ")
 hum=st.sidebar.number_input("Humedad (%)")
 st.sidebar.text("Volumen de solvente y peso del soluto, para calculos mas exactos se convertira el volumen a masa , con la densidad a la temepratura del laboratorio ingresada")
 V_ml=st.sidebar.number_input("Volumen agua(ml)", min_value=0, max_value=100000, value=25)
-W2=st.sidebar.number_input("Peso del solvente(g)",min_value=0.00000, max_value=200000.00000,value=0.2000,step=0.00001,format="%.4f")
+W2=st.sidebar.number_input("Peso del soluto(g)",min_value=0.00000, max_value=200000.00000,value=0.2000,step=0.00001,format="%.4f")
 
 st.divider()
 
@@ -161,6 +161,7 @@ else:
     st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA(TENGA EN CUENTA LAS UNIDADES, SIN EMBARGO, EL NOMBRE DE LOS ROTULOS ES RELATIVO, RESPETE EL ORDEN")
     
         
+
 
 
 
