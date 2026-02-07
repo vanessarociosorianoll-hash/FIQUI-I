@@ -50,6 +50,7 @@ if excel is not None:
             "1/T":inversa_T
         }
         df2=pd.DataFrame(datos2)
+        st.subheader("TABLA DE DATOS PRINCIPAL")
         st.dataframe(df2)
         st.header("A)GRÁFICA Ln(P) vs 1/T")
     
@@ -130,6 +131,7 @@ if excel is not None:
     
     
     
+
 
 
 
