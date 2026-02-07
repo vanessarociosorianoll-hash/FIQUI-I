@@ -11,7 +11,10 @@ st.title("LABORATORIO PRESION DE VAPOR -FSQI")
 st.sidebar.header("Condiciones del laboratorio")
 temp=st.sidebar.number_input("Temperatura (℃):")
 pres=st.sidebar.number_input("Presion (mmhg): ")
-st.image("DATOS_PRESIONVAP.png", caption="Asegúrate que el archivo Excel tenga la siguiente estructura:D", use_container_width=True)
+st.info("Asegúrate de que el archivo Excel tenga la siguiente estructura:D")
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image("DATOS_PRESIONVAP.png", caption="Modelo de datos")
 excel=st.file_uploader("SUBA EL ARCHIVO CORRECTO :D",type=["xlsx"])
 if excel is None:
     st.info("Tenga en cuenta la etiqueta y estructura del archivo Excel")
@@ -112,3 +115,4 @@ else:
     A=e**b
 
     st.latex(fr"P = e^{{ \frac{{ -{deltaHV:.4f} }}{{ {R} \cdot T }} }} \cdot {A:.4f}")
+
