@@ -20,7 +20,7 @@ with col2:
     st.write("**Sube tu archivo :D**")
     excel=st.file_uploader("EXCEL:",type=["xlsx", "xls", "csv"])
 if excel is not None:
-    if pres=="0.0":
+    if pres==0:
         st.warning("CÁLCULOS NO DISPONIBLES. INGRESE LAS CONDICIONES DEL LABORATORIO")
         st.stop()
     else:
@@ -65,7 +65,6 @@ if excel is not None:
             m, mx = np.nanmin(y), np.nanmax(y)
             
             if np.isfinite([n, nx, m, mx]).all():
-                # Agregamos un 5% de margen para que no se corten los puntos
                 margin_x = (nx - n) * 0.05 if nx != n else 0.1
                 margin_y = (mx - m) * 0.05 if mx != m else 0.1
                 ax.set_xlim(n - margin_x, nx + margin_x)
@@ -128,6 +127,7 @@ if excel is not None:
     
     
     
+
 
 
 
