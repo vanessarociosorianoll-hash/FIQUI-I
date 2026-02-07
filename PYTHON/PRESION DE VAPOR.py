@@ -20,6 +20,9 @@ with col2:
     st.write("**Sube tu archivo :D**")
     excel=st.file_uploader("EXCEL:",type=["xlsx", "xls", "csv"])
 if excel is not None:
+    if temp is None:
+        st.warning("CÁLCULOS NO DISPONIBLES. INGRESE LAS CONDICIONES DEL LABORATORIO")
+    else:
         df1=pd.read_excel(excel, sheet_name=0)
         lista_temperatura=df1["T(℃)"].tolist()
         lista_presiones=df1["PHg(mmhg)"].tolist()
@@ -124,6 +127,7 @@ if excel is not None:
     
     
     
+
 
 
 
