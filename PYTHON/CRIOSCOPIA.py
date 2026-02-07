@@ -111,7 +111,7 @@ if excel is not None:
     mx=max(temperatura_s)
     ax.set_xlim(min(tiempo_s),nx)
     ax.set_ylim(min(temperatura_s),mx)
-    ax.set_title("Tiempo vs Temperatura-AGUA")
+    ax.set_title("Tiempo vs Temperatura-SOLUTO")
     ax.set_xlabel("Tiempo(s)")
     ax.set_ylabel("Temperatura(℃)")
     #temp de congelamiento:
@@ -161,6 +161,7 @@ else:
     st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA(TENGA EN CUENTA LAS UNIDADES, SIN EMBARGO, EL NOMBRE DE LOS ROTULOS ES RELATIVO, RESPETE EL ORDEN")
     
         
+
 
 
 
