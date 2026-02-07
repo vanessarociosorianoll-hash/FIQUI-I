@@ -48,76 +48,76 @@ if excel is not None:
     
         x=inversa_T
         y=Ln_pgas
-        fig, ax=plt.subplots()
-        ax.xaxis.set_major_locator(ticker.AutoLocator())
-        ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(10))
-        ax.yaxis.set_major_locator(ticker.AutoLocator())
-        ax.yaxis.set_minor_locator(ticker.AutoMinorLocator(10))
-        ax.grid(which='major', color="#2761AB", linestyle='-', linewidth=0.8, alpha=0.6)
-        ax.grid(which="minor",color="#2761AB",linestyle="-",linewidth=0.2,alpha=0.3)
-        ax.plot(x,y,color="skyblue",linestyle="", marker="o")
-        n=min(inversa_T)
-        m=min(Ln_pgas)
-        nx=max(inversa_T)
-        mx=max(Ln_pgas)
-        ax.set_xlim(n,nx)
-        ax.set_ylim(m,mx)
-        ax.set_title("1/T vs Ln(Presion del gas)")
-        ax.set_xlabel("1/T")
-        ax.set_ylabel("Ln(Pgas)")
-        #ECUACION : AX+B=Y
-        a,b=np.polyfit(inversa_T,Ln_pgas,1)
-        st.success(f"Ecuacion de la recta: y={a:.4f}x+{b:.4f}")
-        #PARA GRAFICAR LA REGRESION LINEAL:
-        ynuevo=a*inversa_T+b
-        ax.plot(inversa_T,ynuevo,color="#000000C3",linestyle="-",label=f"Regresion lineal: y={a:.4f}x+{b:.4f}")
-        ax.legend(loc="best")
-        st.pyplot(fig)
-        st.header("B)CALOR MOLAR DE VAPORIZACION USANDO EC. DE CLAUSIUS-CLAPEYRON")
-        st.text("Usando la formula:")
-        st.latex(r"\frac{dp}{dT} = \frac{\Delta HV}{(Vg - Vl)T} = \frac{\Delta HV}{T \Delta V}")
-        st.text("Desarrollando: ")
-        st.latex(r"Ln(P)=\frac{-\Delta HV}{RT}+C")
-        R=8.314 #J/molK
-        deltaHV=-R*a
-        st.subheader("Metodo gráfico: ")
-        st.success(f"△HV= {deltaHV:.4f}J/mol*K")
-        st.subheader("Metodo analitico:")
-        st.latex(r"2.3*log(\frac{P2}{P1})=\frac{\Delta HV}{R}*\frac{T2-T1}{T2*T1}")
-        puntos=st.slider(
-            label="Seleccione la cantidad de puntos a considerar",
-            min_value=2,
-            max_value=len(Pgas_mmhg)
-        )
-        lista_valordedeltaHV=[]
+        if not x.empty and not y.empty:
+            fig, ax=plt.subplots()
+            ax.xaxis.set_major_locator(ticker.AutoLocator())
+            ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(10))
+            ax.yaxis.set_major_locator(ticker.AutoLocator())
+            ax.yaxis.set_minor_locator(ticker.AutoMinorLocator(10))
+            ax.grid(which='major', color="#2761AB", linestyle='-', linewidth=0.8, alpha=0.6)
+            ax.grid(which="minor",color="#2761AB",linestyle="-",linewidth=0.2,alpha=0.3)
+            ax.plot(x,y,color="skyblue",linestyle="", marker="o")
+            n, nx = x.min(), x.max()
+            m, mx = y.min(), y.max()
+            ax.set_xlim(n,nx)
+            ax.set_ylim(m,mx)
+            ax.set_title("1/T vs Ln(Presion del gas)")
+            ax.set_xlabel("1/T")
+            ax.set_ylabel("Ln(Pgas)")
+            #ECUACION : AX+B=Y
+            a,b=np.polyfit(inversa_T,Ln_pgas,1)
+            st.success(f"Ecuación de la recta: y={a:.4f}x+{b:.4f}")
+            #PARA GRAFICAR LA REGRESIÓN LINEAL:
+            ynuevo=a*inversa_T+b
+            ax.plot(inversa_T,ynuevo,color="#000000C3",linestyle="-",label=f"Regresion lineal: y={a:.4f}x+{b:.4f}")
+            ax.legend(loc="best")
+            st.pyplot(fig)
+            st.header("B)CALOR MOLAR DE VAPORIZACION USANDO EC. DE CLAUSIUS-CLAPEYRON")
+            st.text("Usando la formula:")
+            st.latex(r"\frac{dp}{dT} = \frac{\Delta HV}{(Vg - Vl)T} = \frac{\Delta HV}{T \Delta V}")
+            st.text("Desarrollando: ")
+            st.latex(r"Ln(P)=\frac{-\Delta HV}{RT}+C")
+            R=8.314 #J/molK
+            deltaHV=-R*a
+            st.subheader("Metodo gráfico: ")
+            st.success(f"△HV= {deltaHV:.4f}J/mol*K")
+            st.subheader("Metodo analitico:")
+            st.latex(r"2.3*log(\frac{P2}{P1})=\frac{\Delta HV}{R}*\frac{T2-T1}{T2*T1}")
+            puntos=st.slider(
+                label="Seleccione la cantidad de puntos a considerar",
+                min_value=2,
+                max_value=len(Pgas_mmhg)
+            )
+            lista_valordedeltaHV=[]
+            
+            for m in range (puntos-1):
+                P1,P2=list(Pgas_mmhg)[m],list(Pgas_mmhg)[m+1]
+                T1,T2=list(temperatura_K)[m],list(temperatura_K)[m+1]
+                delta_HV=symbols("HV")
+                ecua1=Eq(2.3*log10(P1/(P2)),-delta_HV*(T2-T1)/((R*(T2)*(T1))))
+                solu=solve(ecua1,delta_HV)
+                HV=solu[0]
+                lista_valordedeltaHV.append(HV)
+            HV_prom=sum(lista_valordedeltaHV)/len(lista_valordedeltaHV)
         
-        for m in range (puntos-1):
-            P1,P2=list(Pgas_mmhg)[m],list(Pgas_mmhg)[m+1]
-            T1,T2=list(temperatura_K)[m],list(temperatura_K)[m+1]
-            delta_HV=symbols("HV")
-            ecua1=Eq(2.3*log10(P1/(P2)),-delta_HV*(T2-T1)/((R*(T2)*(T1))))
-            solu=solve(ecua1,delta_HV)
-            HV=solu[0]
-            lista_valordedeltaHV.append(HV)
-        HV_prom=sum(lista_valordedeltaHV)/len(lista_valordedeltaHV)
+            st.success(f"HV={HV_prom:.4f}J/mol*K")
+            st.subheader("PORCENTAJE DE ERROR")
+        
+            error=abs(HV_prom-deltaHV)*100/HV_prom
+            st.warning(f"PORCENTAJE DE ERROR={error:.2f}%")
+            #cd "C:\Users\SORIANO\Desktop\UNMSM\VACACIONES-U\PYTHON"
+            #streamlit run "#PRESION DE VAPOR.py"
+            st.header("C)EXPRESIÓN MATEMÁTICA: ")
+            st.text("Usando los datos obtenidos por el gráfico, se procede a integrar:")
+            st.latex(r"\int \frac{dP}{P}=\frac{\Delta HV}{R}*\int\frac{dT}{T^2}")
+            st.latex(r"ln(P)=\frac{-\Delta HV}{R*T}+C")
+            st.text("Expresión: ")
+            A=e**b
     
-        st.success(f"HV={HV_prom:.4f}J/mol*K")
-        st.subheader("PORCENTAJE DE ERROR")
+            st.latex(fr"P = e^{{ \frac{{ -{deltaHV:.4f} }}{{ {R} \cdot T }} }} \cdot {A:.4f}")
     
-        error=abs(HV_prom-deltaHV)*100/HV_prom
-        st.warning(f"PORCENTAJE DE ERROR={error:.2f}%")
-        #cd "C:\Users\SORIANO\Desktop\UNMSM\VACACIONES-U\PYTHON"
-        #streamlit run "#PRESION DE VAPOR.py"
-        st.header("C)EXPRESIÓN MATEMÁTICA: ")
-        st.text("Usando los datos obtenidos por el gráfico, se procede a integrar:")
-        st.latex(r"\int \frac{dP}{P}=\frac{\Delta HV}{R}*\int\frac{dT}{T^2}")
-        st.latex(r"ln(P)=\frac{-\Delta HV}{R*T}+C")
-        st.text("Expresión: ")
-        A=e**b
-
-        st.latex(fr"P = e^{{ \frac{{ -{deltaHV:.4f} }}{{ {R} \cdot T }} }} \cdot {A:.4f}")
-
-
+    
+    
 
 
 
