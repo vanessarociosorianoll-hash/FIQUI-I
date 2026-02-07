@@ -111,15 +111,18 @@ if excel is not None:
     mx=max(temperatura_s)
     ax.set_xlim(min(tiempo_s),nx)
     ax.set_ylim(min(temperatura_s),mx)
-    ax.set_title("tiempo vs Temperatura-AGUA")
+    ax.set_title("Tiempo vs Temperatura-AGUA")
     ax.set_xlabel("Tiempo(s)")
-    ax.set_ylabel("temepratura(℃)")
+    ax.set_ylabel("Temperatura(℃)")
     #temp de congelamiento:
     temp_n1_s=np.round(temperatura_s,2)
     min=np.argmin(temp_n1_s)
     paracontarr=temp_n1_s[min+2: ]
     t_conge_c_s=stats.mode(paracontarr,keepdims=True)
-    T_2S=float(t_conge_c_s[0])
+    if len(t_conge_c_s) > 0:
+        T_2S = float(t_conge_c_s.mode[0]) 
+    else:
+        T_2S = 0.0
     ax.plot(x,y,color="#144B97C3",linestyle="-",label=f"T_congelacion={T_2S}℃")
     ax.legend(loc="best")
     st.pyplot(fig)
@@ -158,6 +161,7 @@ else:
     st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA(TENGA EN CUENTA LAS UNIDADES, SIN EMBARGO, EL NOMBRE DE LOS ROTULOS ES RELATIVO, RESPETE EL ORDEN")
     
         
+
 
 
 
