@@ -17,7 +17,7 @@ with col1:
     st.info("Asegúrate de que el archivo Excel tenga la siguiente estructura:D")
     st.image("datos vap.png", caption="Modelo de Excel requerido")
 with col2:
-    st.write("**Sube tu archivo :D")
+    st.write("**Sube tu archivo :D**")
     uploaded_file = st.file_uploader("Elige tu archivo de Excel", type=["xlsx", "xls", "csv"])
     if uploaded_file is not None:
         df1=pd.read_excel(excel, sheet_name=0)
@@ -116,6 +116,7 @@ with col2:
         A=e**b
 
     st.latex(fr"P = e^{{ \frac{{ -{deltaHV:.4f} }}{{ {R} \cdot T }} }} \cdot {A:.4f}")
+
 
 
 
