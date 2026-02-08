@@ -102,66 +102,69 @@ with tab1:
             masa_g_mol=masa("CH3OH",4)
         #tc
         tck=tc(sol_org)
-        x=tck-6-temperaturas
-        k_t=2.12
-        y=gamman_exp*(masa_g_mol/dens_o)**(2/3)
-        y_t = y[0] + k_t * (x - x[0])
-        x_t=tck-6-temperaturas
-        #gráfica
-        fig, ax=plt.subplots(figsize=(8, 6))
-        ax.xaxis.set_major_locator(ticker.AutoLocator())
-        ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(10))
-        ax.yaxis.set_major_locator(ticker.AutoLocator())
-        ax.yaxis.set_minor_locator(ticker.AutoMinorLocator(10))
-        ax.grid(which='major', color="#2761AB", linestyle='-', linewidth=0.8, alpha=0.6)
-        ax.grid(which="minor",color="#2761AB",linestyle="-",linewidth=0.2,alpha=0.3)
-        ax.plot(x, y, color="skyblue", linestyle="-", marker="o",label="Expermental")
-        ax.plot(x_t, y_t, color="red", linestyle="-",marker="o",label="teorico")
-        
-        nx=max(x)
-        mx=max(y)
-        ax.set_xlim(min(x),nx)
-        todos_los_y = np.concatenate([y, y_t])
-        ax.set_ylim(np.min(todos_los_y) - 5, np.max(todos_los_y) + 5)
-        ax.set_title("GRAFICA DE EÖTVÖS")
-        ax.set_xlabel(r"$T_c - 6 - t$")
-        ax.set_ylabel(r"$\gamma (M/\rho)^{2/3}$")
-        ax.legend()
-        st.pyplot(fig)
-        k,intercepto=np.polyfit(x,y,1)
-        st.write(f"Pendiente(cte de Eotvos) experimental: {k:.4f} $erg \cdot mol^{{-2/3}} \cdot K^{{-1}}$")
-        st.write(f"Pendiente(cte de Eotvos) teorico: {k_t:.4f} $erg \cdot mol^{{-2/3}} \cdot K^{{-1}}$")
-        error_relativo = abs(k - k_t) / k_t * 100
-        st.info(f"Diferencia porcentual con la teoría: {error_relativo:.2f}%")
-with tab2:
-    st.header("Formulas")
-    st.subheader("Tension superficial experimental")
-    st.text("1->Liquido Organico")
-    st.text("2->Agua")
-    st.text("Usando un liquido de referencia(Agua), ademas considerando el angulo de contacto (cosɵ=1)")
-    st.latex(r"\frac{γ_{1}}{γ_{2}}=\frac{h_{1}*ρ_{1}}{h_{2}*ρ_{2}}")
-    st.subheader("Radio del capilar")
-    st.latex(r"r=\frac{2*γ_{2}}{h_{2}*g}")
-    with st.expander("Significado de los términos"):
-        st.markdown("""
-        | Símbolo | Significado |
-        | :--- | :--- |
-        | $γ$ | Tension superficial(mN/m) |
-        | $h$ | Altura del liquido en el capilar(mm). |
-        | $ρ$ | Densidad (g/mm3). |
-        | $g$ | Gravedad(9810 mm/s2). |
-        """)
+        if len(temperaturas) > 0 and np.any(gamman_exp > 0):
+            tck = tc(sol_org)
+            x = tck - 6 - temperaturas
+            k_t = 2.12
+            y=gamman_exp*(masa_g_mol/dens_o)**(2/3)
+            y_t = y[0] + k_t * (x - x[0])
+            x_t=tck-6-temperaturas
+            #gráfica
+            fig, ax=plt.subplots(figsize=(8, 6))
+            ax.xaxis.set_major_locator(ticker.AutoLocator())
+            ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(10))
+            ax.yaxis.set_major_locator(ticker.AutoLocator())
+            ax.yaxis.set_minor_locator(ticker.AutoMinorLocator(10))
+            ax.grid(which='major', color="#2761AB", linestyle='-', linewidth=0.8, alpha=0.6)
+            ax.grid(which="minor",color="#2761AB",linestyle="-",linewidth=0.2,alpha=0.3)
+            ax.plot(x, y, color="skyblue", linestyle="-", marker="o",label="Expermental")
+            ax.plot(x_t, y_t, color="red", linestyle="-",marker="o",label="teorico")
+            
+            nx=max(x)
+            mx=max(y)
+            ax.set_xlim(min(x),nx)
+            todos_los_y = np.concatenate([y, y_t])
+            ax.set_ylim(np.min(todos_los_y) - 5, np.max(todos_los_y) + 5)
+            ax.set_title("GRAFICA DE EÖTVÖS")
+            ax.set_xlabel(r"$T_c - 6 - t$")
+            ax.set_ylabel(r"$\gamma (M/\rho)^{2/3}$")
+            ax.legend()
+            st.pyplot(fig)
+            k,intercepto=np.polyfit(x,y,1)
+            st.write(f"Pendiente(cte de Eotvos) experimental: {k:.4f} $erg \cdot mol^{{-2/3}} \cdot K^{{-1}}$")
+            st.write(f"Pendiente(cte de Eotvos) teorico: {k_t:.4f} $erg \cdot mol^{{-2/3}} \cdot K^{{-1}}$")
+            error_relativo = abs(k - k_t) / k_t * 100
+            st.info(f"Diferencia porcentual con la teoría: {error_relativo:.2f}%")
+    with tab2:
+        st.header("Formulas")
+        st.subheader("Tension superficial experimental")
+        st.text("1->Liquido Organico")
+        st.text("2->Agua")
+        st.text("Usando un liquido de referencia(Agua), ademas considerando el angulo de contacto (cosɵ=1)")
+        st.latex(r"\frac{γ_{1}}{γ_{2}}=\frac{h_{1}*ρ_{1}}{h_{2}*ρ_{2}}")
+        st.subheader("Radio del capilar")
+        st.latex(r"r=\frac{2*γ_{2}}{h_{2}*g}")
+        with st.expander("Significado de los términos"):
+            st.markdown("""
+            | Símbolo | Significado |
+            | :--- | :--- |
+            | $γ$ | Tension superficial(mN/m) |
+            | $h$ | Altura del liquido en el capilar(mm). |
+            | $ρ$ | Densidad (g/mm3). |
+            | $g$ | Gravedad(9810 mm/s2). |
+            """)
+    
+        st.subheader("Constante de Eötvos")
+        st.latex(r"y(\frac{M}{ρ})^{\frac{2}{3}} vs (T_{c}-6-t)")
+        with st.expander("Significado de los términos"):
+            st.markdown("""
+            | Símbolo | Significado |
+            | :--- | :--- |
+            | $γ$ | Tension superficial(mN/m) |
+            | $M$ | Masa molar del liquido organico(g/mol). |
+            | $ρ$ | Densidad (g/ml). |
+            | $Tc$ | Temperatura del liquido organico(℃). |
+            | $T$ | Temperatura de trabajo(℃). |
+            | $k$ | Constante de Eotvos($erg*mol^{-2/3}*K^{-1}$). |
+            """)
 
-    st.subheader("Constante de Eötvos")
-    st.latex(r"y(\frac{M}{ρ})^{\frac{2}{3}} vs (T_{c}-6-t)")
-    with st.expander("Significado de los términos"):
-        st.markdown("""
-        | Símbolo | Significado |
-        | :--- | :--- |
-        | $γ$ | Tension superficial(mN/m) |
-        | $M$ | Masa molar del liquido organico(g/mol). |
-        | $ρ$ | Densidad (g/ml). |
-        | $Tc$ | Temperatura del liquido organico(℃). |
-        | $T$ | Temperatura de trabajo(℃). |
-        | $k$ | Constante de Eotvos($erg*mol^{-2/3}*K^{-1}$). |
-        """)
