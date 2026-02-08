@@ -232,6 +232,8 @@ else:
         st.header("SACAROSA")
     
     st.subheader("TABLA DE DATOS")
+    med = st.number_input("¿Cuantas mediciones realizó?", min_value=1) # Agregué min_value
+    lista_med = list(range(1, int(med) + 1))
     dfS = pd.DataFrame({
         "%Peso": [0.0] * int(med),
         "Sacarosa (g)": [0.0] * int(med),
@@ -283,6 +285,7 @@ else:
     st.subheader("RESULTADOS FINALES")
     
     st.dataframe(dfsac)
+
 
 
 
