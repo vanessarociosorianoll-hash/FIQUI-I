@@ -11,6 +11,7 @@ from scipy import stats
 from Handbook.densidades import densidad_agua as den
 
 st.title("LABORATORIO CRIOSCOPIA -FSQI")
+st.warning("⚠️TENGA EN CUENTA LOS DATOS SOLICITADOS EN LA BARRA LATERAL")
 st.sidebar.header("Condiciones del laboratorio")
 temp=st.sidebar.number_input("Temperatura (℃):")
 pres=st.sidebar.number_input("Presion (mmhg): ")
@@ -161,6 +162,7 @@ else:
     st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA (TENGA EN CUENTA LAS UNIDADES; SIN EMBARGO, EL NOMBRE DE LOS RÓTULOS ES RELATIVO; RESPETE EL ORDEN")
     
         
+
 
 
 
