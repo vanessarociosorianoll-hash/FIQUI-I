@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 st.title("LABORATORIO PRESION DE VAPOR -FSQI")
-
+st.warning("⚠️TENGA EN CUENTA LOS DATOS SOLICITADOS EN LA BARRA LATERAL")
 st.sidebar.header("Condiciones del laboratorio")
 temp=st.sidebar.number_input("Temperatura (℃):")
 pres=st.sidebar.number_input("Presion (mmhg): ")
@@ -138,6 +138,7 @@ if excel is not None:
     
     
     
+
 
 
 
