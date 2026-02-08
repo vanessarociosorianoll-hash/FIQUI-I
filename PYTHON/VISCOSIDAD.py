@@ -9,6 +9,7 @@ import numpy as np
 from Handbook.densidades import densidad_agua,uno_propanol,dos_propanol,metanol,etanol
 from Handbook.viscosidades import v_1_propanol,v_2_prop,v_w
 st.title("LABORATORIO VISCOSIDAD Y DENSIDAD -FSQI")
+st.warning("⚠️TENER EN CUENTA LOS DATOS DE LA BARRA LATERAL PARA LOS CÁLCULOS")
 st.sidebar.header("Condiciones del laboratorio")
 temp=st.sidebar.number_input("Temperatura (℃):")
 pres=st.sidebar.number_input("Presion (mmhg): ")
@@ -187,4 +188,5 @@ if st.button("Resultados",key="densidades"):
         dens_o=dos_propanol(26)
     st.success(f"Densidad segun el CRC:{dens_o} g/ml")
     error=abs(p_26-p_corr[0])*100/p_26
+
     st.error(f"%Error relativo(densidad de 26℃):{error:.2f} %")
