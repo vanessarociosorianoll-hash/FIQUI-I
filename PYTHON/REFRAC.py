@@ -240,10 +240,10 @@ refracSAC = np.array(dfS_editar["Indice de refracción"])
 sacg = np.array(dfS_editar["Sacarosa (g)"])
 lista_compSAC = np.array(dfS_editar["%Peso"])
 
-vol_solucion = st.sidebar.number_input(label="Volumen de solucion de sacarosa (ml):", value=10.0) # Cambié a float
+vol_solucion = st.sidebar.number_input(label="Volumen de solución de sacarosa (ml):", value=10.0) # Cambié a float
 M_sacarosa = masa("C12H22O11", 4)
 M_H2O = 18.01528 
-
+den_agua=densidad_agua(temp)
 mol_sac = sacg / M_sacarosa
 masa_agua = den_agua * vol_solucion 
 mol_agua = masa_agua / M_H2O
@@ -278,6 +278,7 @@ dfsac = pd.DataFrame({
 st.subheader("RESULTADOS FINALES")
 
 st.dataframe(dfsac)
+
 
 
 
