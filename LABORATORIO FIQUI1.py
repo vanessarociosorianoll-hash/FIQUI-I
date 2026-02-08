@@ -4,7 +4,7 @@ import os
 
 st.sidebar.title("LABO FIQUI I - FQIQ")
 st.sidebar.markdown("---")
-st.sidebar.tittle("⚠️TENER EN CUENTA LA BARRA LATERAL")
+st.sidebar.titLe("⚠️TENER EN CUENTA LA BARRA LATERAL")
 ruta_python = os.path.join(os.path.dirname(__file__), "PYTHON")
 if ruta_python not in sys.path:
     sys.path.insert(0, ruta_python)
@@ -24,6 +24,7 @@ pg = st.navigation([pagina_0, pagina_1, pagina_2, pagina_3, pagina_5, pagina_6,p
 st.set_page_config(page_title="Laboratorio de Fisicoquímica - UNMSM", layout="wide")
 
 pg.run()
+
 
 
 
