@@ -13,7 +13,6 @@ from Handbook.tc_K import tc
 tab1,tab2=st.tabs(["CALCULOS","FUNDAMENTO TEORICO"])
 with tab1:
     st.title("LABORATORIO TENSION SUPERFICIAL -FSQI")
-    st.warning("⚠️TENER EN CUENTA LOS DATOS DE LA BARRA LATERAL PARA LOS CÁLCULOS")
     st.sidebar.header("Condiciones del laboratorio")
     temp=st.sidebar.number_input("Temperatura (℃):")
     pres=st.sidebar.number_input("Presion (mmhg): ")
@@ -171,5 +170,6 @@ with tab1:
     else:
         st.warning("PORFAVOR INGRESE DATOS ")
     
+
 
 
