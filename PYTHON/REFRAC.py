@@ -113,7 +113,7 @@ else:
     st.dataframe(df4)
     with st.expander("Detalles de calculo"):
         col1,col2=st.columns(2)
-        col1.metric("Peso molecular del agua", f"{masa("H2O",4)} g/mol")
+        col1.metric("Peso molecular del agua", f"{masa('H2O', 4)} g/mol")
         col2.metric("Peso molecular del componente organico",f"{M_orga:.4f} g/mol")
     st.subheader("C)% PESO EXPERIMENTAL")
     st.latex(r'''
@@ -278,5 +278,6 @@ dfsac = pd.DataFrame({
 st.subheader("RESULTADOS FINALES")
 
 st.dataframe(dfsac)
+
 
 
