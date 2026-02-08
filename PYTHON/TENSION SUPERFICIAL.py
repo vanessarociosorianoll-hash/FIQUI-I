@@ -135,7 +135,7 @@ with tab1:
             st.write(f"Pendiente(cte de Eotvos) teorico: {k_t:.4f} $erg \cdot mol^{{-2/3}} \cdot K^{{-1}}$")
             error_relativo = abs(k - k_t) / k_t * 100
             st.info(f"Diferencia porcentual con la teoría: {error_relativo:.2f}%")
-        with tab2:
+    with tab2:
             st.header("Formulas")
             st.subheader("Tension superficial experimental")
             st.text("1->Liquido Organico")
@@ -170,6 +170,7 @@ with tab1:
     else:
         st.warning("PORFAVOR INGRESE DATOS ")
     
+
 
 
 
