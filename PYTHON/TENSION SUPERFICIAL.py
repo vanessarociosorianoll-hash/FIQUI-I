@@ -135,36 +135,39 @@ with tab1:
             st.write(f"Pendiente(cte de Eotvos) teorico: {k_t:.4f} $erg \cdot mol^{{-2/3}} \cdot K^{{-1}}$")
             error_relativo = abs(k - k_t) / k_t * 100
             st.info(f"Diferencia porcentual con la teoría: {error_relativo:.2f}%")
-    with tab2:
-        st.header("Formulas")
-        st.subheader("Tension superficial experimental")
-        st.text("1->Liquido Organico")
-        st.text("2->Agua")
-        st.text("Usando un liquido de referencia(Agua), ademas considerando el angulo de contacto (cosɵ=1)")
-        st.latex(r"\frac{γ_{1}}{γ_{2}}=\frac{h_{1}*ρ_{1}}{h_{2}*ρ_{2}}")
-        st.subheader("Radio del capilar")
-        st.latex(r"r=\frac{2*γ_{2}}{h_{2}*g}")
-        with st.expander("Significado de los términos"):
-            st.markdown("""
-            | Símbolo | Significado |
-            | :--- | :--- |
-            | $γ$ | Tension superficial(mN/m) |
-            | $h$ | Altura del liquido en el capilar(mm). |
-            | $ρ$ | Densidad (g/mm3). |
-            | $g$ | Gravedad(9810 mm/s2). |
-            """)
+        with tab2:
+            st.header("Formulas")
+            st.subheader("Tension superficial experimental")
+            st.text("1->Liquido Organico")
+            st.text("2->Agua")
+            st.text("Usando un liquido de referencia(Agua), ademas considerando el angulo de contacto (cosɵ=1)")
+            st.latex(r"\frac{γ_{1}}{γ_{2}}=\frac{h_{1}*ρ_{1}}{h_{2}*ρ_{2}}")
+            st.subheader("Radio del capilar")
+            st.latex(r"r=\frac{2*γ_{2}}{h_{2}*g}")
+            with st.expander("Significado de los términos"):
+                st.markdown("""
+                | Símbolo | Significado |
+                | :--- | :--- |
+                | $γ$ | Tension superficial(mN/m) |
+                | $h$ | Altura del liquido en el capilar(mm). |
+                | $ρ$ | Densidad (g/mm3). |
+                | $g$ | Gravedad(9810 mm/s2). |
+                """)
+        
+            st.subheader("Constante de Eötvos")
+            st.latex(r"y(\frac{M}{ρ})^{\frac{2}{3}} vs (T_{c}-6-t)")
+            with st.expander("Significado de los términos"):
+                st.markdown("""
+                | Símbolo | Significado |
+                | :--- | :--- |
+                | $γ$ | Tension superficial(mN/m) |
+                | $M$ | Masa molar del liquido organico(g/mol). |
+                | $ρ$ | Densidad (g/ml). |
+                | $Tc$ | Temperatura del liquido organico(℃). |
+                | $T$ | Temperatura de trabajo(℃). |
+                | $k$ | Constante de Eotvos($erg*mol^{-2/3}*K^{-1}$). |
+                """)
+    else:
+        st.warning("PORFAVOR INGRESE DATOS ")
     
-        st.subheader("Constante de Eötvos")
-        st.latex(r"y(\frac{M}{ρ})^{\frac{2}{3}} vs (T_{c}-6-t)")
-        with st.expander("Significado de los términos"):
-            st.markdown("""
-            | Símbolo | Significado |
-            | :--- | :--- |
-            | $γ$ | Tension superficial(mN/m) |
-            | $M$ | Masa molar del liquido organico(g/mol). |
-            | $ρ$ | Densidad (g/ml). |
-            | $Tc$ | Temperatura del liquido organico(℃). |
-            | $T$ | Temperatura de trabajo(℃). |
-            | $k$ | Constante de Eotvos($erg*mol^{-2/3}*K^{-1}$). |
-            """)
 
