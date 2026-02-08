@@ -38,7 +38,7 @@ def id_col_indices(df):
     return None
 
 if excel is None:
-    st.info("Tenga en cuenta la etiqueta y estructura del archivo Excel")
+    st.info("Tenga en cuenta la etiqueta y estructura del archivo Excel, si desea puede agregar otra hoja con los datos de la Sacarosa , en caso haya realizado esa parte experimental")
 else: 
     if st.button("CALCULAR"):
         st.header("TABLA 1")
@@ -283,6 +283,7 @@ else:
     st.subheader("RESULTADOS FINALES")
     
     st.dataframe(dfsac)
+
 
 
 
