@@ -15,7 +15,7 @@ st.sidebar.header("Condiciones del laboratorio")
 temp=st.sidebar.number_input("Temperatura (℃):")
 pres=st.sidebar.number_input("Presion (mmhg): ")
 hum=st.sidebar.number_input("Humedad (%)")
-st.sidebar.text("Volumen de solvente y peso del soluto, para calculos mas exactos se convertira el volumen a masa , con la densidad a la temepratura del laboratorio ingresada")
+st.sidebar.text("Volumen de solvente y peso del soluto, para cálculos más exactos se convertirá el volumen a masa , con la densidad a la temperatura del laboratorio ingresada")
 V_ml=st.sidebar.number_input("Volumen agua(ml)", min_value=0, max_value=100000, value=25)
 W2=st.sidebar.number_input("Peso del soluto(g)",min_value=0.00000, max_value=200000.00000,value=0.2000,step=0.00001,format="%.4f")
 
@@ -36,8 +36,8 @@ with col2:
 if excel is not None: 
     #AGUA
     df1=pd.read_excel(excel, sheet_name=0)
-    st.subheader("Configuración de Columnas")
-    col_t =st.selectbox("¿Cuál es tu columna de tiempo/intervalo", df1.columns)
+    st.subheader("Configuración de columnas del archivo subido")
+    col_t =st.selectbox("¿Cuál es tu columna de tiempo/intervalo?", df1.columns)
     col_temp = [c for c in df1.columns if c != col_t][0]
     es_intervalo =st.checkbox("¿Son intervalos (1, 2, 3...)?")
 
@@ -63,9 +63,9 @@ if excel is not None:
     mx=max(temperatura)
     ax.set_xlim(min(tiempo),nx)
     ax.set_ylim(min(temperatura),mx)
-    ax.set_title("tiempo vs Temperatura-AGUA")
+    ax.set_title("Tiempo vs Temperatura-AGUA")
     ax.set_xlabel("Tiempo(s)")
-    ax.set_ylabel("temepratura(℃)")
+    ax.set_ylabel("Temperatura(℃)")
     #temp de congelamiento:
     temp_n1=np.round(temperatura,2)
     minimo=np.argmin(temp_n1)
@@ -78,8 +78,8 @@ if excel is not None:
         st.warning(" No se detectó una meseta clara después del punto mínimo.")
     ax.plot(x,y,color="#144B97C3",linestyle="-",label=f"T_congelacion={T1_SL}℃")
     ax.legend(loc="best")
-    st.pyplot(fig)
-    st.info("Los puntos de congelacion se hallaron, en la meseta formada despues del pico mas bajo de la grafica;sinendo este ultimo un punto inestable")
+    st.pyplot(fig,width=300)
+    st.info("Los puntos de congelación se hallaron en la meseta formada después del pico más bajo de la gráfica;siendo este último un punto inestable")
     #SOLVENTE
 
     df2=pd.read_excel(excel, sheet_name=1)
@@ -125,7 +125,7 @@ if excel is not None:
         T_2S = 0.0
     ax.plot(x,y,color="#144B97C3",linestyle="-",label=f"T_congelacion={T_2S}℃")
     ax.legend(loc="best")
-    st.pyplot(fig)
+    st.pyplot(fig,width=300)
     st.header("HALLAR EL PESO MOLECULAR DEL SOLUTO")
     st.latex(r"\Delta_T=K_{f}m")
     st.text("Siendo m , concentracionn molal")
@@ -161,6 +161,7 @@ else:
     st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA(TENGA EN CUENTA LAS UNIDADES, SIN EMBARGO, EL NOMBRE DE LOS ROTULOS ES RELATIVO, RESPETE EL ORDEN")
     
         
+
 
 
 
