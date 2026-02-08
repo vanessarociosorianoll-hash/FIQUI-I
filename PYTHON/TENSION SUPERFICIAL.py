@@ -167,9 +167,10 @@ with tab2:
             | $T$ | Temperatura de trabajo(℃). |
             | $k$ | Constante de Eotvos($erg*mol^{-2/3}*K^{-1}$). |
             """)
-    else:
-        st.warning("PORFAVOR INGRESE DATOS ")
+        else:
+            st.warning("PORFAVOR INGRESE DATOS ")
     
+
 
 
 
