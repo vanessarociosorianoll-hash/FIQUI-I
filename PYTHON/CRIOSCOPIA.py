@@ -78,7 +78,7 @@ if excel is not None:
         st.warning(" No se detectó una meseta clara después del punto mínimo.")
     ax.plot(x,y,color="#144B97C3",linestyle="-",label=f"T_congelacion={T1_SL}℃")
     ax.legend(loc="best")
-    st.pyplot(fig,width=700)
+    st.pyplot(fig)
     #SOLVENTE
 
     df2=pd.read_excel(excel, sheet_name=1)
@@ -124,7 +124,7 @@ if excel is not None:
         T_2S = 0.0
     ax.plot(x,y,color="#144B97C3",linestyle="-",label=f"T_congelacion={T_2S}℃")
     ax.legend(loc="best")
-    st.pyplot(fig,width=700)
+    st.pyplot(fig)
     st.info("Los puntos de congelación se hallaron en la meseta formada después del pico más bajo de la gráfica;siendo este último un punto inestable")
     st.header("HALLAR EL PESO MOLECULAR DEL SOLUTO")
     st.latex(r"\Delta_T=K_{f}m")
@@ -161,6 +161,7 @@ else:
     st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA (TENGA EN CUENTA LAS UNIDADES; SIN EMBARGO, EL NOMBRE DE LOS RÓTULOS ES RELATIVO; RESPETE EL ORDEN")
     
         
+
 
 
 
