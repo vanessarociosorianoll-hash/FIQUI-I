@@ -78,8 +78,7 @@ if excel is not None:
         st.warning(" No se detectó una meseta clara después del punto mínimo.")
     ax.plot(x,y,color="#144B97C3",linestyle="-",label=f"T_congelacion={T1_SL}℃")
     ax.legend(loc="best")
-    st.pyplot(fig,width=500)
-    st.info("Los puntos de congelación se hallaron en la meseta formada después del pico más bajo de la gráfica;siendo este último un punto inestable")
+    st.pyplot(fig,width=700)
     #SOLVENTE
 
     df2=pd.read_excel(excel, sheet_name=1)
@@ -125,7 +124,8 @@ if excel is not None:
         T_2S = 0.0
     ax.plot(x,y,color="#144B97C3",linestyle="-",label=f"T_congelacion={T_2S}℃")
     ax.legend(loc="best")
-    st.pyplot(fig,width=500)
+    st.pyplot(fig,width=700)
+    st.info("Los puntos de congelación se hallaron en la meseta formada después del pico más bajo de la gráfica;siendo este último un punto inestable")
     st.header("HALLAR EL PESO MOLECULAR DEL SOLUTO")
     st.latex(r"\Delta_T=K_{f}m")
     st.text("Siendo m , concentracionn molal")
@@ -152,15 +152,16 @@ if excel is not None:
 
    
                 st.success(f"Masa molar experimental:{M:.4f} g/mol")
-                st.success(f"Masa molar teorico= {masa(compuesto,4)} g/mol")
+                st.success(f"Masa molar teórico= {masa(compuesto,4)} g/mol")
                 error1=abs(masa(compuesto,4)-M)*100/masa(compuesto,4)
                 st.error(f"%Error={error1:.2f} %")
         except:
             st.error(f"Error en la fórmula química. Revise el compuesto ingresado")
 else:
-    st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA(TENGA EN CUENTA LAS UNIDADES, SIN EMBARGO, EL NOMBRE DE LOS ROTULOS ES RELATIVO, RESPETE EL ORDEN")
+    st.info("PORFAVOR,SUBA UN ARCHIVO ACORDE A LA ESTRUCTURA PRESENTADA (TENGA EN CUENTA LAS UNIDADES; SIN EMBARGO, EL NOMBRE DE LOS RÓTULOS ES RELATIVO; RESPETE EL ORDEN")
     
         
+
 
 
 
