@@ -7,7 +7,7 @@ from sympy import symbols, Eq, solve
 from math import *
 
 st.title("LABORATORIO DE GASES-FSQI")
-
+st.warning("⚠️TENGA EN CUENTA LOS DATOS SOLICITADOS EN LA BARRA LATERAL")
 st.sidebar.header("Condiciones del laboratorio")
 temp = st.sidebar.number_input("Temperatura (℃):")
 pres = st.sidebar.number_input("Presion (mmhg): ")
@@ -167,6 +167,7 @@ if st.button("Calcular con estos datos"):
     
     
     
+
 
 
 
