@@ -16,9 +16,15 @@ pres=st.sidebar.number_input("Presion (mmhg): ")
 hum=st.sidebar.number_input("Humedad (%)")
 sol_org=st.sidebar.selectbox("Compuesto organico:",("1-propanol O n-propanol ", "2-propanol"))
 V_ml=st.sidebar.number_input("Volumen de las soluciones", min_value=0, max_value=100000, value=3)
-excel=st.file_uploader("SUBA EL ARCHIVO CORRECTO :D",type=["xlsx"])
-import pandas as pd
-import streamlit as st
+col_img, col_file = st.columns([1, 1])
+
+with col_img:
+    st.image("REFRACMODEL.png", caption="Estructura sugerida del Excel",width=500)
+
+with col_file:
+    st.subheader("Carga de datos")
+    excel = st.file_uploader("Sube tu archivo Excel de Refractometria", type=["xlsx", "xls"])
+ 
 
 def id_col_indices(df):
 
@@ -32,7 +38,7 @@ def id_col_indices(df):
     return None
 
 if excel is None:
-    st.info("Tenga en cuenta la etiqueta y estructura del archivo excel")
+    st.info("Tenga en cuenta la etiqueta y estructura del archivo Excel")
 else: 
     if st.button("CALCULAR"):
         st.header("TABLA 1")
@@ -277,6 +283,7 @@ else:
     st.subheader("RESULTADOS FINALES")
     
     st.dataframe(dfsac)
+
 
 
 
