@@ -11,6 +11,7 @@ import numpy as np
 from Handbook.densidades import densidad_agua
 from matplotlib import cm
 st.title("LABORATORIO TERMOQUIMICA -FSQI")
+st.warning("⚠️TENER EN CUENTA LOS DATOS DE LA BARRA LATERAL PARA LOS CÁLCULOS")
 st.sidebar.header("Condiciones del laboratorio")
 temp=st.sidebar.number_input("Temperatura (℃):")
 pres=st.sidebar.number_input("Presion (mmhg): ")
@@ -278,6 +279,7 @@ if va>0:
               st.error(f"%Error={erorrorr:.2f} %")
           
               st.info("En el cálculo exacto, no se asumió una  solución ideal. Se utilizó un modelo de Capacidad Calorífica Molar Aparente basado en el CRC Handbook. El programa calculó la masa efectiva del solvente restando la masa de los solutos y aplicó las contribuciones térmicas individuales de cada especie ($NaCl, NaOH$ y $H_2O$). Esto permite capturar el efecto de la interacción ion-solvente que reduce la capacidad calorífica del sistema, entregando una entalpía de neutralización basada en la física real de la mezcla.Siendo este calculo , mucho mas sensible en comparacion al simple :D")
+
 
 
 
